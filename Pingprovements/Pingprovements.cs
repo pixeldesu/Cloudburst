@@ -2,6 +2,7 @@
 using BepInEx;
 using BepInEx.Configuration;
 using RoR2;
+using RoR2.UI;
 using UnityEngine;
 using System.Reflection;
 using UnityEngine.SceneManagement;
@@ -22,11 +23,11 @@ namespace Pingprovements
 
         /**
          * <summary>
-         *      As <see cref="RoR2.PingerController"/> only can hold one instance of <see cref="RoR2.UI.PingIndicator"/>, we need to
-         *      add our own storage for them. This holds all <see cref="RoR2.UI.PingIndicator"/>s of the current stage
+         *      As <see cref="PingerController"/> only can hold one instance of <see cref="PingIndicator"/>, we need to
+         *      add our own storage for them. This holds all <see cref="PingIndicator"/>s of the current stage
          * </summary>
          */
-        private List<RoR2.UI.PingIndicator> pingIndicators = new List<RoR2.UI.PingIndicator>();
+        private List<PingIndicator> pingIndicators = new List<PingIndicator>();
 
         public void Awake()
         {
@@ -49,7 +50,7 @@ namespace Pingprovements
 
         /**
          * <summary>
-         *      Override for <see cref="RoR2.PingerController.SetCurrentPing"/>
+         *      Override for <see cref="PingerController.SetCurrentPing"/>
          * </summary>
          */
         private void PingerController_SetCurrentPing(On.RoR2.PingerController.orig_SetCurrentPing orig, PingerController self, PingerController.PingInfo newPingInfo)
@@ -64,7 +65,7 @@ namespace Pingprovements
             // Here we create an instance of PingIndicator
             // since we're not jumping into PingerController.RebuildPing() to create one
             GameObject gameObject = (GameObject)UnityEngine.Object.Instantiate(Resources.Load("Prefabs/PingIndicator"));
-            RoR2.UI.PingIndicator pingIndicator = gameObject.GetComponent<RoR2.UI.PingIndicator>();
+            PingIndicator pingIndicator = gameObject.GetComponent<PingIndicator>();
 
             pingIndicator.pingOwner = self.gameObject;
             pingIndicator.pingOrigin = newPingInfo.origin;
@@ -77,7 +78,7 @@ namespace Pingprovements
                 (int)pingIndicator
                     .GetType()
                     .GetField("pingType", BindingFlags.NonPublic | BindingFlags.Instance)
-                    .GetValue(pingIndicator) == 2
+                    .GetValue(pingIndicator) == (int) PingIndicator.PingType.Interactable
                )
             {
                 pingIndicator.GetType().GetField("fixedTimer", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(pingIndicator, (float) PingIndicatorLifetime.Value);
