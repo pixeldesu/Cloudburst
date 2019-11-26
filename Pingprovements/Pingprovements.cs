@@ -11,7 +11,7 @@ using System.Linq;
 namespace Pingprovements
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.pixeldesu.pingprovements", "Pingprovements", "1.0.0")]
+    [BepInPlugin("com.pixeldesu.pingprovements", "Pingprovements", "1.0.1")]
     public class Pingprovements : BaseUnityPlugin
     {
         /**
@@ -85,7 +85,7 @@ namespace Pingprovements
         {
             // If the targeted game object already has a ping, don't do anything
             // This is here to avoid stacking of different player pings on interactibles
-            if (newPingInfo.targetGameObject != null && pingIndicators.Any(indicator => indicator.pingTarget == newPingInfo.targetGameObject))
+            if (newPingInfo.targetGameObject != null && pingIndicators.Any(indicator => indicator && indicator.pingTarget == newPingInfo.targetGameObject))
                 return;
 
             self.NetworkcurrentPing = newPingInfo;
