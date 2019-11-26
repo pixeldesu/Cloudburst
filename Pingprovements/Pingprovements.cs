@@ -121,7 +121,10 @@ namespace Pingprovements
                     break;
             }
 
-            pingIndicator.GetType().GetField("fixedTimer", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(pingIndicator, fixedTimer);
+            pingIndicator
+                .GetType()
+                .GetField("fixedTimer", BindingFlags.NonPublic | BindingFlags.Instance)
+                .SetValue(pingIndicator, fixedTimer);
 
             // We add the ping indicator to our own local list
             pingIndicators.Add(pingIndicator);
