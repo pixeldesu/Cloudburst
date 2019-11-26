@@ -16,10 +16,24 @@ namespace Pingprovements
     {
         /**
          * <summary>
-         *      Config variable for the ping lifetime
+         *      Config variable for the default ping lifetime
          * </summary>
          */
-        public static ConfigWrapper<int> PingIndicatorLifetime { get; set; }
+        public static ConfigWrapper<int> DefaultPingLifetime { get; set; }
+
+        /**
+         * <summary>
+         *      Config variable for the enemy ping lifetime
+         * </summary>
+         */
+        public static ConfigWrapper<int> EnemyPingLifetime { get; set; }
+
+        /**
+         * <summary>
+         *      Config variable for the interactible ping lifetime
+         * </summary>
+         */
+        public static ConfigWrapper<int> InteractiblePingLifetime { get; set; }
 
         /**
          * <summary>
@@ -31,11 +45,25 @@ namespace Pingprovements
 
         public void Awake()
         {
-            PingIndicatorLifetime = Config.Wrap<int>(
+            DefaultPingLifetime = Config.Wrap<int>(
                 "Main",
-                "PingIndicatorLifetime",
+                "DefaultPingLifetime",
+                "Time in seconds how long a regular 'walk to' ping indicator should be shown on the map",
+                6
+            );
+
+            EnemyPingLifetime = Config.Wrap<int>(
+                "Main",
+                "EnemyPingLifetime",
+                "Time in seconds how long a ping indicator for enemies should be shown on the map",
+                8
+            );
+
+            InteractiblePingLifetime = Config.Wrap<int>(
+                "Main",
+                "InteractiblePingLifetime",
                 "Time in seconds how long a ping indicator for interactibles should be shown on the map",
-                10000
+                30
             );
 
             On.RoR2.PingerController.SetCurrentPing += PingerController_SetCurrentPing;
@@ -73,16 +101,27 @@ namespace Pingprovements
             pingIndicator.pingTarget = newPingInfo.targetGameObject;
             pingIndicator.RebuildPing();
 
-            // If the target is an interactible (pingType => 2), change the fixedTimer instance variable to the configured ping lifetime
-            if (
-                (int)pingIndicator
+            float fixedTimer = 0f;
+
+            int pingType = (int)pingIndicator
                     .GetType()
                     .GetField("pingType", BindingFlags.NonPublic | BindingFlags.Instance)
-                    .GetValue(pingIndicator) == (int) PingIndicator.PingType.Interactable
-               )
+                    .GetValue(pingIndicator);
+
+            switch(pingType)
             {
-                pingIndicator.GetType().GetField("fixedTimer", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(pingIndicator, (float) PingIndicatorLifetime.Value);
+                case (int) PingIndicator.PingType.Default:
+                    fixedTimer = (float) DefaultPingLifetime.Value;
+                    break;
+                case (int) PingIndicator.PingType.Enemy:
+                    fixedTimer = (float) EnemyPingLifetime.Value;
+                    break;
+                case (int) PingIndicator.PingType.Interactable:
+                    fixedTimer = (float) InteractiblePingLifetime.Value;
+                    break;
             }
+
+            pingIndicator.GetType().GetField("fixedTimer", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(pingIndicator, fixedTimer);
 
             // We add the ping indicator to our own local list
             pingIndicators.Add(pingIndicator);
