@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BepInEx;
 using BepInEx.Configuration;
 using RoR2;
@@ -7,7 +8,7 @@ using UnityEngine;
 using System.Reflection;
 using UnityEngine.SceneManagement;
 using System.Linq;
-using System;
+using System.Text;
 
 namespace Pingprovements
 {
@@ -172,13 +173,14 @@ namespace Pingprovements
             switch(pingType)
             {
                 case PingIndicator.PingType.Default:
-                    fixedTimer = (float) DefaultPingLifetime.Value;
+                    fixedTimer = DefaultPingLifetime.Value;
                     break;
                 case PingIndicator.PingType.Enemy:
-                    fixedTimer = (float) EnemyPingLifetime.Value;
+                    fixedTimer = EnemyPingLifetime.Value;
                     break;
                 case PingIndicator.PingType.Interactable:
-                    fixedTimer = (float) InteractiblePingLifetime.Value;
+                    fixedTimer = InteractiblePingLifetime.Value;
+                    AddLootText(pingIndicator);
                     break;
             }
 
@@ -233,6 +235,41 @@ namespace Pingprovements
             float[] colorValues = Array.ConvertAll(colorString.Split(','), float.Parse);
 
             return new Color(colorValues[0], colorValues[1], colorValues[2], colorValues[3]);
+        }
+
+        private static void AddLootText(PingIndicator pingIndicator)
+        {
+            var price = GetPrice(pingIndicator.pingTarget);
+            var shopTerminal = pingIndicator.pingTarget.GetComponent<ShopTerminalBehavior>();
+            if (shopTerminal)
+            {
+                var pickupIndex = shopTerminal.CurrentPickupIndex();
+                var pickup = PickupCatalog.GetPickupDef(pickupIndex);
+                if (!shopTerminal.pickupIndexIsHidden)
+                    pingIndicator.pingText.text += $"\n{Language.GetString(pickup.nameToken)}";
+                pingIndicator.pingText.text += $" ({price})";
+            }
+
+            var chest = pingIndicator.pingTarget.GetComponent<ChestBehavior>();
+            if (chest)
+            {
+                pingIndicator.pingText.text += $"\n{Util.GetBestBodyName(pingIndicator.pingTarget)} ({price})";
+            }
+        }
+
+        private static string GetPrice(GameObject go)
+        {
+            var purchaseInteraction = go.GetComponent<PurchaseInteraction>();
+            if (purchaseInteraction)
+            {
+                var sb = new StringBuilder();
+                CostTypeCatalog.GetCostTypeDef(purchaseInteraction.costType)
+                    .BuildCostStringStyled(purchaseInteraction.cost, sb, true);
+
+                return sb.ToString();
+            }
+
+            return null;
         }
     }
 }
