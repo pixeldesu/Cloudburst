@@ -31,6 +31,12 @@ namespace Pingprovements
         public static ConfigWrapper<string> DefaultPingSpriteColorConfig { get; set; }
         public static ConfigWrapper<string> EnemyPingSpriteColorConfig { get; set; }
         public static ConfigWrapper<string> InteractiblePingSpriteColorConfig { get; set; }
+        
+        // Config variables for interactible additional text
+        public static ConfigWrapper<bool> ShowShopText { get; set; }
+        public static ConfigWrapper<bool> ShowChestText { get; set; }
+        public static ConfigWrapper<bool> ShowDroneText { get; set; }
+        public static ConfigWrapper<bool> ShowShrineText { get; set; }
 
         // Dictionary containing all color definitions
         private Dictionary<string, Color> Colors = new Dictionary<string, Color>();
@@ -116,6 +122,31 @@ namespace Pingprovements
 
             Colors.Add("InteractiblePingColor", ConvertStringToColor(InteractiblePingColorConfig.Value));
             Colors.Add("InteractiblePingSpriteColor", ConvertStringToColor(InteractiblePingSpriteColorConfig.Value));
+
+            ShowChestText = Config.Wrap<bool>(
+                "ShowPingText",
+                "Chests",
+                "Shows item names and cost on chest pings",
+                true
+            );
+            ShowShopText = Config.Wrap<bool>(
+                "ShowPingText",
+                "ShopTerminals",
+                "Shows item names and cost on shop terminal pings",
+                true
+            );
+            ShowDroneText = Config.Wrap<bool>(
+                "ShowPingText",
+                "Drones",
+                "Shows drone type on broken drone pings",
+                true
+            );
+            ShowShrineText = Config.Wrap<bool>(
+                "ShowPingText",
+                "Shrines",
+                "Shows shrine type on shrine pings",
+                true
+            );
 
             On.RoR2.PingerController.SetCurrentPing += PingerController_SetCurrentPing;
 
@@ -225,7 +256,7 @@ namespace Pingprovements
             string textStart = "<size=70%>\n";
             string price = GetPrice(pingIndicator.pingTarget);
             ShopTerminalBehavior shopTerminal = pingIndicator.pingTarget.GetComponent<ShopTerminalBehavior>();
-            if (shopTerminal)
+            if (shopTerminal && ShowShopText.Value)
             {
                 var text = textStart;
                 var pickupIndex = shopTerminal.CurrentPickupIndex();
@@ -237,7 +268,7 @@ namespace Pingprovements
             }
 
             var chest = pingIndicator.pingTarget.GetComponent<ChestBehavior>();
-            if (chest)
+            if (chest && ShowChestText.Value)
             {
                 pingIndicator.pingText.text += $"{textStart}{Util.GetBestBodyName(pingIndicator.pingTarget)} ({price})";
                 return;
@@ -247,13 +278,13 @@ namespace Pingprovements
             
             // Drones
             var summonMaster = pingIndicator.pingTarget.GetComponent<SummonMasterBehavior>();
-            if (summonMaster)
+            if (summonMaster && ShowDroneText.Value)
             {
                 pingIndicator.pingText.text += $"{textStart}{name} ({price})";
                 return;
             }
 
-            pingIndicator.pingText.text += $"{textStart}{name}";
+            if (ShowShrineText.Value) pingIndicator.pingText.text += $"{textStart}{name}";
         }
 
         private static string GetPrice(GameObject go)
