@@ -12,7 +12,7 @@ using System.Text;
 namespace Pingprovements
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.pixeldesu.pingprovements", "Pingprovements", "1.1.0")]
+    [BepInPlugin("com.pixeldesu.pingprovements", "Pingprovements", "1.2.0")]
     public class Pingprovements : BaseUnityPlugin
     {
         // Config variables for ping lifetimes
