@@ -35,6 +35,7 @@ namespace Pingprovements
         // Config variables for interactible additional text
         public static ConfigWrapper<bool> ShowShopText { get; set; }
         public static ConfigWrapper<bool> ShowChestText { get; set; }
+        public static ConfigWrapper<bool> ShowPickupText { get; set; }
         public static ConfigWrapper<bool> ShowDroneText { get; set; }
         public static ConfigWrapper<bool> ShowShrineText { get; set; }
 
@@ -122,6 +123,13 @@ namespace Pingprovements
 
             Colors.Add("InteractiblePingColor", ConvertStringToColor(InteractiblePingColorConfig.Value));
             Colors.Add("InteractiblePingSpriteColor", ConvertStringToColor(InteractiblePingSpriteColorConfig.Value));
+
+            ShowPickupText = Config.Wrap<bool>(
+                "ShowPingText",
+                "Pickups",
+                "Shows item names on pickup pings",
+                true
+            );
 
             ShowChestText = Config.Wrap<bool>(
                 "ShowPingText",
@@ -274,6 +282,13 @@ namespace Pingprovements
                     : $"{Language.GetString(pickup.nameToken)}";
                 pingIndicator.pingText.text += $"{text} ({price})";
                 return;
+            }
+
+            var pickupController = pingIndicator.pingTarget.GetComponent<GenericPickupController>();
+            if (pickupController && ShowPickupText.Value)
+            {
+                var pickup = PickupCatalog.GetPickupDef(pickupController.pickupIndex);
+                pingIndicator.pingText.text += $"{textStart}{Language.GetString(pickup.nameToken)}";
             }
 
             var chest = pingIndicator.pingTarget.GetComponent<ChestBehavior>();
