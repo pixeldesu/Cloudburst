@@ -5,7 +5,6 @@ using BepInEx.Configuration;
 using RoR2;
 using RoR2.UI;
 using UnityEngine;
-using System.Reflection;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using System.Text;
@@ -232,13 +231,27 @@ namespace Pingprovements
                 if (!shopTerminal.pickupIndexIsHidden)
                     pingIndicator.pingText.text += $"\n{Language.GetString(pickup.nameToken)}";
                 pingIndicator.pingText.text += $" ({price})";
+                return;
             }
 
             var chest = pingIndicator.pingTarget.GetComponent<ChestBehavior>();
             if (chest)
             {
                 pingIndicator.pingText.text += $"\n{Util.GetBestBodyName(pingIndicator.pingTarget)} ({price})";
+                return;
             }
+
+            string name = Language.GetString(pingIndicator.pingTarget.GetComponent<PurchaseInteraction>().displayNameToken);
+            
+            // Drones
+            var summonMaster = pingIndicator.pingTarget.GetComponent<SummonMasterBehavior>();
+            if (summonMaster)
+            {
+                pingIndicator.pingText.text += $"\n{name} ({price})";
+                return;
+            }
+
+            pingIndicator.pingText.text += $"\n{name}";
         }
 
         private static string GetPrice(GameObject go)
