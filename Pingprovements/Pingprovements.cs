@@ -222,22 +222,24 @@ namespace Pingprovements
 
         private static void AddLootText(PingIndicator pingIndicator)
         {
-            var price = GetPrice(pingIndicator.pingTarget);
-            var shopTerminal = pingIndicator.pingTarget.GetComponent<ShopTerminalBehavior>();
+            string textStart = "<size=70%>\n";
+            string price = GetPrice(pingIndicator.pingTarget);
+            ShopTerminalBehavior shopTerminal = pingIndicator.pingTarget.GetComponent<ShopTerminalBehavior>();
             if (shopTerminal)
             {
+                var text = textStart;
                 var pickupIndex = shopTerminal.CurrentPickupIndex();
                 var pickup = PickupCatalog.GetPickupDef(pickupIndex);
-                if (!shopTerminal.pickupIndexIsHidden)
-                    pingIndicator.pingText.text += $"\n{Language.GetString(pickup.nameToken)}";
-                pingIndicator.pingText.text += $" ({price})";
+                text += shopTerminal.pickupIndexIsHidden ? "?"
+                    : $"{Language.GetString(pickup.nameToken)}";
+                pingIndicator.pingText.text += $"{text} ({price})";
                 return;
             }
 
             var chest = pingIndicator.pingTarget.GetComponent<ChestBehavior>();
             if (chest)
             {
-                pingIndicator.pingText.text += $"\n{Util.GetBestBodyName(pingIndicator.pingTarget)} ({price})";
+                pingIndicator.pingText.text += $"{textStart}{Util.GetBestBodyName(pingIndicator.pingTarget)} ({price})";
                 return;
             }
 
@@ -247,11 +249,11 @@ namespace Pingprovements
             var summonMaster = pingIndicator.pingTarget.GetComponent<SummonMasterBehavior>();
             if (summonMaster)
             {
-                pingIndicator.pingText.text += $"\n{name} ({price})";
+                pingIndicator.pingText.text += $"{textStart}{name} ({price})";
                 return;
             }
 
-            pingIndicator.pingText.text += $"\n{name}";
+            pingIndicator.pingText.text += $"{textStart}{name}";
         }
 
         private static string GetPrice(GameObject go)
