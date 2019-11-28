@@ -158,10 +158,7 @@ namespace Pingprovements
 
             float fixedTimer = 0f;
 
-            PingIndicator.PingType pingType = (PingIndicator.PingType) pingIndicator
-                    .GetType()
-                    .GetField("pingType", BindingFlags.NonPublic | BindingFlags.Instance)
-                    .GetValue(pingIndicator);
+            PingIndicator.PingType pingType = pingIndicator.GetObjectValue<PingIndicator.PingType>("pingType");
 
             switch(pingType)
             {
@@ -177,10 +174,7 @@ namespace Pingprovements
                     break;
             }
 
-            pingIndicator
-                .GetType()
-                .GetField("fixedTimer", BindingFlags.NonPublic | BindingFlags.Instance)
-                .SetValue(pingIndicator, fixedTimer);
+            pingIndicator.SetObjectValue("fixedTimer", fixedTimer);
 
             // We add the ping indicator to our own local list
             pingIndicators.Add(pingIndicator);
@@ -196,10 +190,7 @@ namespace Pingprovements
             SpriteRenderer sprRenderer;
             Color textColor = new Color(0,0,0,0);
 
-            PingIndicator.PingType pingType = (PingIndicator.PingType) pingIndicator
-                    .GetType()
-                    .GetField("pingType", BindingFlags.NonPublic | BindingFlags.Instance)
-                    .GetValue(pingIndicator);
+            PingIndicator.PingType pingType = pingIndicator.GetObjectValue<PingIndicator.PingType>("pingType");
 
             switch(pingType)
             {
