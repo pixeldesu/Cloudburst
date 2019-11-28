@@ -129,18 +129,21 @@ namespace Pingprovements
                 "Shows item names and cost on chest pings",
                 true
             );
+
             ShowShopText = Config.Wrap<bool>(
                 "ShowPingText",
                 "ShopTerminals",
                 "Shows item names and cost on shop terminal pings",
                 true
             );
+
             ShowDroneText = Config.Wrap<bool>(
                 "ShowPingText",
                 "Drones",
                 "Shows drone type on broken drone pings",
                 true
             );
+
             ShowShrineText = Config.Wrap<bool>(
                 "ShowPingText",
                 "Shrines",
@@ -165,6 +168,12 @@ namespace Pingprovements
          */
         private void PingerController_SetCurrentPing(On.RoR2.PingerController.orig_SetCurrentPing orig, PingerController self, PingerController.PingInfo newPingInfo)
         {
+            // For some reason, if you ping somewhere that is not pingable, it will create a
+            // Ping at 0,0,0. If that happens, we just leave, since that isn't possible in the
+            // regular game either, or if so, not at exactly those coordinates
+            if (newPingInfo.origin.x == 0 && newPingInfo.origin.y == 0 && newPingInfo.origin.z == 0)
+                return;
+
             // If the targeted game object already has a ping, don't do anything
             // This is here to avoid stacking of different player pings on interactibles
             if (newPingInfo.targetGameObject != null && pingIndicators.Any(indicator => indicator && indicator.pingTarget == newPingInfo.targetGameObject))
