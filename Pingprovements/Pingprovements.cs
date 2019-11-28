@@ -33,15 +33,8 @@ namespace Pingprovements
         public static ConfigWrapper<string> EnemyPingSpriteColorConfig { get; set; }
         public static ConfigWrapper<string> InteractiblePingSpriteColorConfig { get; set; }
 
-
-        // Color instances
-        private Color DefaultPingColor;
-        private Color DefaultPingSpriteColor;
-        private Color EnemyPingColor;
-        private Color EnemyPingSpriteColor;
-        private Color InteractiblePingColor;
-        private Color InteractiblePingSpriteColor;
-
+        // Dictionary containing all color definitions
+        private Dictionary<string, Color> Colors = new Dictionary<string, Color>();
 
         /**
          * <summary>
@@ -88,8 +81,8 @@ namespace Pingprovements
                 "0.527,0.962,0.486,1.000"
             );
 
-            DefaultPingColor = ConvertStringToColor(DefaultPingColorConfig.Value);
-            DefaultPingSpriteColor = ConvertStringToColor(DefaultPingSpriteColorConfig.Value);
+            Colors.Add("DefaultPingColor", ConvertStringToColor(DefaultPingColorConfig.Value));
+            Colors.Add("DefaultPingSpriteColor", ConvertStringToColor(DefaultPingSpriteColorConfig.Value));
 
             EnemyPingColorConfig = Config.Wrap<string>(
                 "Colors",
@@ -105,8 +98,8 @@ namespace Pingprovements
                 "0.821,0.120,0.120,1.000"
             );
 
-            EnemyPingColor = ConvertStringToColor(EnemyPingColorConfig.Value);
-            EnemyPingSpriteColor = ConvertStringToColor(EnemyPingSpriteColorConfig.Value);
+            Colors.Add("EnemyPingColor", ConvertStringToColor(EnemyPingColorConfig.Value));
+            Colors.Add("EnemyPingSpriteColor", ConvertStringToColor(EnemyPingSpriteColorConfig.Value));
 
             InteractiblePingColorConfig = Config.Wrap<string>(
                 "Colors",
@@ -122,8 +115,8 @@ namespace Pingprovements
                 "0.887,0.870,0.172,1.000"
             );
 
-            InteractiblePingColor = ConvertStringToColor(InteractiblePingColorConfig.Value);
-            InteractiblePingSpriteColor = ConvertStringToColor(InteractiblePingSpriteColorConfig.Value);
+            Colors.Add("InteractiblePingColor", ConvertStringToColor(InteractiblePingColorConfig.Value));
+            Colors.Add("InteractiblePingSpriteColor", ConvertStringToColor(InteractiblePingSpriteColorConfig.Value));
 
             On.RoR2.PingerController.SetCurrentPing += PingerController_SetCurrentPing;
 
@@ -202,19 +195,19 @@ namespace Pingprovements
             switch(pingType)
             {
                 case PingIndicator.PingType.Default:
-                    textColor = DefaultPingColor;
+                    textColor = Colors["DefaultPingColor"];
                     sprRenderer = pingIndicator.defaultPingGameObjects[0].GetComponent<SpriteRenderer>();
-                    sprRenderer.color = DefaultPingSpriteColor;
+                    sprRenderer.color = Colors["DefaultPingSpriteColor"];
                     break;
                 case PingIndicator.PingType.Enemy:
-                    textColor = EnemyPingColor;
+                    textColor = Colors["EnemyPingColor"];
                     sprRenderer = pingIndicator.enemyPingGameObjects[0].GetComponent<SpriteRenderer>();
-                    sprRenderer.color = EnemyPingSpriteColor;
+                    sprRenderer.color = Colors["EnemyPingSpriteColor"];
                     break;
                 case PingIndicator.PingType.Interactable:
-                    textColor = InteractiblePingColor;
+                    textColor = Colors["InteractiblePingColor"];
                     sprRenderer = pingIndicator.interactablePingGameObjects[0].GetComponent<SpriteRenderer>();
-                    sprRenderer.color = InteractiblePingSpriteColor;
+                    sprRenderer.color = Colors["InteractiblePingSpriteColor"];
                     break;
             }
 
