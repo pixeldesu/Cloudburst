@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
+using UnityEngine;
 
 namespace Pingprovements
 {
@@ -15,5 +17,12 @@ namespace Pingprovements
             (T) obj.GetType()
                 .GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(obj);
+        
+        public static Color ToColor(this string colorString)
+        {
+            float[] colorValues = Array.ConvertAll(colorString.Split(','), float.Parse);
+
+            return new Color(colorValues[0], colorValues[1], colorValues[2], colorValues[3]);
+        }
     }
 }
