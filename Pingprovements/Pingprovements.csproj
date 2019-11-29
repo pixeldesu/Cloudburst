@@ -1,13 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <!-- 
-      Change this to your game path
-      Alternatively, figure out how to inject the registry value of:
-        HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 632360\InstallLocation
-      and contribute back 
-    -->
-    <GamePath>D:\Steam Games\steamapps\common\Risk of Rain 2</GamePath>
+    <GamePath>$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 632360', 'InstallLocation', null, RegistryView.Registry64, RegistryView.Registry32))</GamePath>
   </PropertyGroup>
 
   <ItemGroup>
