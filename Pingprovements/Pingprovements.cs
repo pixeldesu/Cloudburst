@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Pingprovements
@@ -9,11 +10,9 @@ namespace Pingprovements
     {
         #region Private Fields
 
-        /**
-         * <summary>
-         *      Configuration instance
-         * </summary>
-         */
+        /// <summary>
+        /// Configuration instance
+        /// </summary>
         private static PingprovementsConfig _config;
 
         #endregion
@@ -27,7 +26,7 @@ namespace Pingprovements
 
         public void Awake()
         {
-            PingerController pingerController = new PingerController(_config);
+            PingerController pingerController = new PingerController(this);
 
             On.RoR2.PingerController.SetCurrentPing += pingerController.SetCurrentPing;
 
@@ -35,5 +34,7 @@ namespace Pingprovements
         }
 
         #endregion
+
+        public PingprovementsConfig GetConfig() => _config;
     }
 }
