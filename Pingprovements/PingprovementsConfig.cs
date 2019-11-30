@@ -110,6 +110,14 @@ namespace Pingprovements
                 "Shows names on enemy pings",
                 true
             );
+
+            ShowPingDistance = config.Wrap(
+                "ShowPingText",
+                "Distance",
+                "Show distance to ping in ping label",
+                true
+            );
+
         }
         
         #region Durations Configuration Options
@@ -200,6 +208,11 @@ namespace Pingprovements
         /// Configuration value to enable showing enemy names on pings
         /// </summary>
         public ConfigWrapper<bool> ShowEnemyText { get; set; }
+        
+        /// <summary>
+        /// Configuration value to enable showing the distance to a ping
+        /// </summary>
+        public ConfigWrapper<bool> ShowPingDistance { get; set; }
         
         #endregion
     }

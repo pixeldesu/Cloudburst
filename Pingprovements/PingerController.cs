@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using RoR2;
-using RoR2.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
@@ -24,7 +23,7 @@ namespace Pingprovements
         /// As <see cref="PingerController"/> only can hold one instance of <see cref="PingIndicator"/>, we need to
         /// add our own storage for them. This holds all <see cref="PingIndicator"/>s of the current stage.
         /// </summary>
-        private readonly List<PingIndicator> _pingIndicators = new List<PingIndicator>();
+        private readonly List<RoR2.UI.PingIndicator> _pingIndicators = new List<RoR2.UI.PingIndicator>();
 
         public PingerController(Pingprovements plugin)
         {
@@ -70,7 +69,7 @@ namespace Pingprovements
             // Here we create an instance of PingIndicator
             // since we're not jumping into PingerController.RebuildPing() to create one.
             GameObject go = (GameObject) Object.Instantiate(Resources.Load("Prefabs/PingIndicator"));
-            PingIndicator pingIndicator = go.GetComponent<PingIndicator>();
+            RoR2.UI.PingIndicator pingIndicator = go.GetComponent<RoR2.UI.PingIndicator>();
 
             pingIndicator.pingOwner = self.gameObject;
             pingIndicator.pingOrigin = newPingInfo.origin;
@@ -83,18 +82,18 @@ namespace Pingprovements
 
             float fixedTimer = 0f;
 
-            PingIndicator.PingType pingType = pingIndicator.GetObjectValue<PingIndicator.PingType>("pingType");
+            RoR2.UI.PingIndicator.PingType pingType = pingIndicator.GetObjectValue<RoR2.UI.PingIndicator.PingType>("pingType");
 
             switch (pingType)
             {
-                case PingIndicator.PingType.Default:
+                case RoR2.UI.PingIndicator.PingType.Default:
                     fixedTimer = _config.DefaultPingLifetime.Value;
                     break;
-                case PingIndicator.PingType.Enemy:
+                case RoR2.UI.PingIndicator.PingType.Enemy:
                     fixedTimer = _config.EnemyPingLifetime.Value;
                     AddEnemyText(pingIndicator);
                     break;
-                case PingIndicator.PingType.Interactable:
+                case RoR2.UI.PingIndicator.PingType.Interactable:
                     fixedTimer = _config.InteractiblePingLifetime.Value;
                     AddLootText(pingIndicator);
                     break;
@@ -115,26 +114,26 @@ namespace Pingprovements
         /// Sets the ping text and sprite color for a given <see cref="PingIndicator"/>
         /// </summary>
         /// <param name="pingIndicator">Target <see cref="PingIndicator"/></param>
-        private void SetPingIndicatorColor(PingIndicator pingIndicator)
+        private void SetPingIndicatorColor(RoR2.UI.PingIndicator pingIndicator)
         {
             SpriteRenderer sprRenderer;
             Color textColor = new Color(0, 0, 0, 0);
 
-            PingIndicator.PingType pingType = pingIndicator.GetObjectValue<PingIndicator.PingType>("pingType");
+            RoR2.UI.PingIndicator.PingType pingType = pingIndicator.GetObjectValue<RoR2.UI.PingIndicator.PingType>("pingType");
 
             switch (pingType)
             {
-                case PingIndicator.PingType.Default:
+                case RoR2.UI.PingIndicator.PingType.Default:
                     textColor = _colors["DefaultPingColor"];
                     sprRenderer = pingIndicator.defaultPingGameObjects[0].GetComponent<SpriteRenderer>();
                     sprRenderer.color = _colors["DefaultPingSpriteColor"];
                     break;
-                case PingIndicator.PingType.Enemy:
+                case RoR2.UI.PingIndicator.PingType.Enemy:
                     textColor = _colors["EnemyPingColor"];
                     sprRenderer = pingIndicator.enemyPingGameObjects[0].GetComponent<SpriteRenderer>();
                     sprRenderer.color = _colors["EnemyPingSpriteColor"];
                     break;
-                case PingIndicator.PingType.Interactable:
+                case RoR2.UI.PingIndicator.PingType.Interactable:
                     textColor = _colors["InteractiblePingColor"];
                     sprRenderer = pingIndicator.interactablePingGameObjects[0].GetComponent<SpriteRenderer>();
                     sprRenderer.color = _colors["InteractiblePingSpriteColor"];
@@ -148,7 +147,7 @@ namespace Pingprovements
         /// Adds name labels for targeted enemies to a <see cref="PingIndicator"/>
         /// </summary>
         /// <param name="pingIndicator">Target <see cref="PingIndicator"/> that should have the text added</param>
-        private static void AddEnemyText(PingIndicator pingIndicator)
+        private static void AddEnemyText(RoR2.UI.PingIndicator pingIndicator)
         {
             const string textStart = "<size=70%>\n";
             string name = Util.GetBestBodyName(pingIndicator.pingTarget);
@@ -160,7 +159,7 @@ namespace Pingprovements
         /// Adds text labels for various interactibles to a <see cref="PingIndicator"/>
         /// </summary>
         /// <param name="pingIndicator">Target <see cref="PingIndicator"/> that should have the text added</param>
-        private static void AddLootText(PingIndicator pingIndicator)
+        private static void AddLootText(RoR2.UI.PingIndicator pingIndicator)
         {
             const string textStart = "<size=70%>\n";
             string price = GetPrice(pingIndicator.pingTarget);

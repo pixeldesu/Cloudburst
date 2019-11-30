@@ -1,5 +1,4 @@
 ﻿using BepInEx;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Pingprovements
@@ -26,9 +25,12 @@ namespace Pingprovements
 
         public void Awake()
         {
+            PingIndicator pingIndicator = new PingIndicator(this);
             PingerController pingerController = new PingerController(this);
 
             On.RoR2.PingerController.SetCurrentPing += pingerController.SetCurrentPing;
+            
+            On.RoR2.UI.PingIndicator.Update += pingIndicator.Update;
 
             SceneManager.sceneUnloaded += pingerController.OnSceneUnloaded;
         }
