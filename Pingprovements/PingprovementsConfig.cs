@@ -118,6 +118,12 @@ namespace Pingprovements
                 true
             );
 
+            HideOffscreenPingText = config.Wrap(
+                "ShowPingText",
+                "HideOffscreenPingText",
+                "Hide text of offscreen pings to prevent cluttering",
+                true
+            );
         }
         
         #region Durations Configuration Options
@@ -213,6 +219,11 @@ namespace Pingprovements
         /// Configuration value to enable showing the distance to a ping
         /// </summary>
         public ConfigWrapper<bool> ShowPingDistance { get; set; }
+        
+        /// <summary>
+        /// Configuration value to hide the ping label if a ping is offscreen
+        /// </summary>
+        public ConfigWrapper<bool> HideOffscreenPingText { get; set; }
         
         #endregion
     }

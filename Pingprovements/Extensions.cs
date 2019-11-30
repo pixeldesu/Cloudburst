@@ -24,5 +24,16 @@ namespace Pingprovements
 
             return new Color(colorValues[0], colorValues[1], colorValues[2], colorValues[3]);
         }
+        
+        public static bool IsObjectVisible(this Camera camera, Transform targetObjectTransform)
+        {
+            Vector3 viewPos = camera.WorldToViewportPoint(targetObjectTransform.position);
+            if (viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1 && viewPos.z > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
