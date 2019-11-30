@@ -92,6 +92,7 @@ namespace Pingprovements
                     break;
                 case PingIndicator.PingType.Enemy:
                     fixedTimer = _config.EnemyPingLifetime.Value;
+                    AddEnemyText(pingIndicator);
                     break;
                 case PingIndicator.PingType.Interactable:
                     fixedTimer = _config.InteractiblePingLifetime.Value;
@@ -137,6 +138,14 @@ namespace Pingprovements
             }
 
             pingIndicator.pingText.color = textColor;
+        }
+
+        private static void AddEnemyText(PingIndicator pingIndicator)
+        {
+            const string textStart = "<size=70%>\n";
+            string name = Util.GetBestBodyName(pingIndicator.pingTarget);
+            
+            if (_config.ShowEnemyText.Value) pingIndicator.pingText.text += $"{textStart}{name}";
         }
 
         private static void AddLootText(PingIndicator pingIndicator)

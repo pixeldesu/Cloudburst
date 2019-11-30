@@ -103,6 +103,13 @@ namespace Pingprovements
                 "Shows shrine type on shrine pings",
                 true
             );
+            
+            ShowEnemyText = config.Wrap(
+                "ShowPingText",
+                "Enemies",
+                "Shows names on enemy pings",
+                true
+            );
         }
 
         // Config variables for ping lifetimes
@@ -128,5 +135,10 @@ namespace Pingprovements
         public ConfigWrapper<bool> ShowPickupText { get; set; }
         public ConfigWrapper<bool> ShowDroneText { get; set; }
         public ConfigWrapper<bool> ShowShrineText { get; set; }
+        
+        /// <summary>
+        /// Configuration value to enable showing enemy names on pings
+        /// </summary>
+        public ConfigWrapper<bool> ShowEnemyText { get; set; }
     }
 }
