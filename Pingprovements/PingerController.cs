@@ -89,7 +89,7 @@ namespace Pingprovements
 
             pingIndicator.RebuildPing();
 
-            SetPingIndicatorColor(ref pingIndicator);
+            SetPingIndicatorColor(pingIndicator);
 
             float fixedTimer = 0f;
 
@@ -120,7 +120,7 @@ namespace Pingprovements
             }
         }
 
-        private void SetPingIndicatorColor(ref PingIndicator pingIndicator)
+        private void SetPingIndicatorColor(PingIndicator pingIndicator)
         {
             SpriteRenderer sprRenderer;
             Color textColor = new Color(0, 0, 0, 0);
