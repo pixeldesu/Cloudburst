@@ -2,102 +2,102 @@
 
 namespace Pingprovements
 {
-    class PingprovementsConfig
+    public class PingprovementsConfig
     {
-        public PingprovementsConfig(ConfigFile Config)
+        public PingprovementsConfig(ConfigFile config)
         {
-            DefaultPingLifetime = Config.Wrap(
+            DefaultPingLifetime = config.Wrap(
                 "Durations",
                 "DefaultPingLifetime",
                 "Time in seconds how long a regular 'walk to' ping indicator should be shown on the map",
                 6
             );
 
-            EnemyPingLifetime = Config.Wrap(
+            EnemyPingLifetime = config.Wrap(
                 "Durations",
                 "EnemyPingLifetime",
                 "Time in seconds how long a ping indicator for enemies should be shown on the map",
                 8
             );
 
-            InteractiblePingLifetime = Config.Wrap(
+            InteractiblePingLifetime = config.Wrap(
                 "Durations",
                 "InteractiblePingLifetime",
                 "Time in seconds how long a ping indicator for interactibles should be shown on the map",
                 30
             );
 
-            DefaultPingColorConfig = Config.Wrap(
+            DefaultPingColorConfig = config.Wrap(
                 "Colors",
                 "DefaultPingColor",
                 "Color of the default ping, in UnityEngine.Color R/G/B/A Float format",
                 "0.525,0.961,0.486,1.000"
             );
 
-            DefaultPingSpriteColorConfig = Config.Wrap(
+            DefaultPingSpriteColorConfig = config.Wrap(
                 "SpriteColors",
                 "DefaultPingSpriteColor",
                 "Color of the default ping sprite, in UnityEngine.Color R/G/B/A Float format",
                 "0.527,0.962,0.486,1.000"
             );
 
-            EnemyPingColorConfig = Config.Wrap(
+            EnemyPingColorConfig = config.Wrap(
                 "Colors",
                 "EnemyPingColor",
                 "Color of the enemy ping, in UnityEngine.Color R/G/B/A Float format",
                 "0.820,0.122,0.122,1.000"
             );
 
-            EnemyPingSpriteColorConfig = Config.Wrap(
+            EnemyPingSpriteColorConfig = config.Wrap(
                 "SpriteColors",
                 "EnemyPingSpriteColor",
                 "Color of the enemy ping sprite, in UnityEngine.Color R/G/B/A Float format",
                 "0.821,0.120,0.120,1.000"
             );
 
-            InteractiblePingColorConfig = Config.Wrap(
+            InteractiblePingColorConfig = config.Wrap(
                 "Colors",
                 "InteractiblePingColor",
                 "Color of the interactible ping, in UnityEngine.Color R/G/B/A Float format",
                 "0.886,0.871,0.173,1.000"
             );
 
-            InteractiblePingSpriteColorConfig = Config.Wrap(
+            InteractiblePingSpriteColorConfig = config.Wrap(
                 "SpriteColors",
                 "InteractiblePingSpriteColor",
                 "Color of the interactible ping sprite, in UnityEngine.Color R/G/B/A Float format",
                 "0.887,0.870,0.172,1.000"
             );
 
-            ShowPickupText = Config.Wrap(
+            ShowPickupText = config.Wrap(
                 "ShowPingText",
                 "Pickups",
                 "Shows item names on pickup pings",
                 true
             );
 
-            ShowChestText = Config.Wrap(
+            ShowChestText = config.Wrap(
                 "ShowPingText",
                 "Chests",
                 "Shows item names and cost on chest pings",
                 true
             );
 
-            ShowShopText = Config.Wrap(
+            ShowShopText = config.Wrap(
                 "ShowPingText",
                 "ShopTerminals",
                 "Shows item names and cost on shop terminal pings",
                 true
             );
 
-            ShowDroneText = Config.Wrap(
+            ShowDroneText = config.Wrap(
                 "ShowPingText",
                 "Drones",
                 "Shows drone type on broken drone pings",
                 true
             );
 
-            ShowShrineText = Config.Wrap(
+            ShowShrineText = config.Wrap(
                 "ShowPingText",
                 "Shrines",
                 "Shows shrine type on shrine pings",
