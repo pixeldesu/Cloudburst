@@ -111,6 +111,10 @@ namespace Pingprovements
             }
         }
 
+        /// <summary>
+        /// Sets the ping text and sprite color for a given <see cref="PingIndicator"/>
+        /// </summary>
+        /// <param name="pingIndicator">Target <see cref="PingIndicator"/></param>
         private void SetPingIndicatorColor(PingIndicator pingIndicator)
         {
             SpriteRenderer sprRenderer;
@@ -140,6 +144,10 @@ namespace Pingprovements
             pingIndicator.pingText.color = textColor;
         }
 
+        /// <summary>
+        /// Adds name labels for targeted enemies to a <see cref="PingIndicator"/>
+        /// </summary>
+        /// <param name="pingIndicator">Target <see cref="PingIndicator"/> that should have the text added</param>
         private static void AddEnemyText(PingIndicator pingIndicator)
         {
             const string textStart = "<size=70%>\n";
@@ -148,6 +156,10 @@ namespace Pingprovements
             if (_config.ShowEnemyText.Value) pingIndicator.pingText.text += $"{textStart}{name}";
         }
 
+        /// <summary>
+        /// Adds text labels for various interactibles to a <see cref="PingIndicator"/>
+        /// </summary>
+        /// <param name="pingIndicator">Target <see cref="PingIndicator"/> that should have the text added</param>
         private static void AddLootText(PingIndicator pingIndicator)
         {
             const string textStart = "<size=70%>\n";
@@ -192,7 +204,12 @@ namespace Pingprovements
 
             if (_config.ShowShrineText.Value) pingIndicator.pingText.text += $"{textStart}{name}";
         }
-
+        
+        /// <summary>
+        /// Get the price from a <see cref="GameObject"/> if it is a <see cref="PurchaseInteraction"/>
+        /// </summary>
+        /// <param name="go">The target <see cref="GameObject"/></param>
+        /// <returns>The price of the game object</returns>
         private static string GetPrice(GameObject go)
         {
             PurchaseInteraction purchaseInteraction = go.GetComponent<PurchaseInteraction>();
