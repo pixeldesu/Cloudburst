@@ -111,34 +111,96 @@ namespace Pingprovements
                 true
             );
         }
-
-        // Config variables for ping lifetimes
+        
+        #region Durations Configuration Options
+        
+        /// <summary>
+        /// Configuration value for the default ping lifetime
+        /// </summary>
         public ConfigWrapper<int> DefaultPingLifetime { get; set; }
+        
+        /// <summary>
+        /// Configuration value for the enemy ping lifetime
+        /// </summary>
         public ConfigWrapper<int> EnemyPingLifetime { get; set; }
+        
+        /// <summary>
+        /// Configuration value for the interactible ping lifetime
+        /// </summary>
         public ConfigWrapper<int> InteractiblePingLifetime { get; set; }
+        
+        #endregion
 
-
-        // Config variables for ping text colors
+        #region Colors Configuration Options
+        
+        /// <summary>
+        /// Configuration value for the default ping color
+        /// </summary>
         public ConfigWrapper<string> DefaultPingColorConfig { get; set; }
+        
+        /// <summary>
+        /// Configuration value for the enemy ping color
+        /// </summary>
         public ConfigWrapper<string> EnemyPingColorConfig { get; set; }
+        
+        /// <summary>
+        /// Configuration value for the interactible ping color
+        /// </summary>
         public ConfigWrapper<string> InteractiblePingColorConfig { get; set; }
-
-
-        // Config variables for ping sprite colors
+        
+        #endregion
+        
+        #region SpriteColors Configuration Options
+        
+        /// <summary>
+        /// Configuration value for the default ping sprite color
+        /// </summary>
         public ConfigWrapper<string> DefaultPingSpriteColorConfig { get; set; }
+        
+        /// <summary>
+        /// Configuration value for the enemy ping sprite color
+        /// </summary>
         public ConfigWrapper<string> EnemyPingSpriteColorConfig { get; set; }
+        
+        /// <summary>
+        /// Configuration value for the interactible ping sprite color
+        /// </summary>
         public ConfigWrapper<string> InteractiblePingSpriteColorConfig { get; set; }
+        
+        #endregion
 
-        // Config variables for interactible additional text
+        #region ShowPingText Configuration Options
+        
+        /// <summary>
+        /// Configuration value to enable showing shop text on pings
+        /// </summary>
         public ConfigWrapper<bool> ShowShopText { get; set; }
+        
+        /// <summary>
+        /// Configuration value to enable showing chest text on pings
+        /// </summary>
         public ConfigWrapper<bool> ShowChestText { get; set; }
+
+        /// <summary>
+        /// Configuration value to enable showing pickup text on pings
+        /// </summary>
         public ConfigWrapper<bool> ShowPickupText { get; set; }
+
+        /// <summary>
+        /// Configuration value to enable showing drone text on pings
+        /// </summary>
         public ConfigWrapper<bool> ShowDroneText { get; set; }
+        
+        /// <summary>
+        /// Configuration value to enable showing shrine text on pings
+        /// </summary>
         public ConfigWrapper<bool> ShowShrineText { get; set; }
         
         /// <summary>
         /// Configuration value to enable showing enemy names on pings
         /// </summary>
         public ConfigWrapper<bool> ShowEnemyText { get; set; }
+        
+        #endregion
     }
 }
