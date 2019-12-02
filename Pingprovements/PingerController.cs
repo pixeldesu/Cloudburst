@@ -100,7 +100,7 @@ namespace Pingprovements
             }
 
             pingIndicator.SetObjectValue("fixedTimer", fixedTimer);
-
+            
             // We add the ping indicator to our own local list
             _pingIndicators.Add(pingIndicator);
 
@@ -190,8 +190,13 @@ namespace Pingprovements
                 return;
             }
 
-            string name =
-                Language.GetString(pingIndicator.pingTarget.GetComponent<PurchaseInteraction>().displayNameToken);
+            string name = "";
+
+            PurchaseInteraction purchaseInteraction = pingIndicator.pingTarget.GetComponent<PurchaseInteraction>();
+            if (purchaseInteraction)
+            {
+                name = Language.GetString(purchaseInteraction.displayNameToken);    
+            }
 
             // Drones
             SummonMasterBehavior summonMaster = pingIndicator.pingTarget.GetComponent<SummonMasterBehavior>();
