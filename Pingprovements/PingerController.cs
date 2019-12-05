@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using System.Text;
+using RoR2.UI;
 
 namespace Pingprovements
 {
@@ -18,7 +19,7 @@ namespace Pingprovements
         /// Color instances used for the <see cref="PingIndicator"/>s
         /// </summary>
         private readonly Dictionary<string, Color> _colors = new Dictionary<string, Color>();
-            
+
         /// <summary>
         /// As <see cref="PingerController"/> only can hold one instance of <see cref="PingIndicator"/>, we need to
         /// add our own storage for them. This holds all <see cref="PingIndicator"/>s of the current stage.
@@ -37,10 +38,10 @@ namespace Pingprovements
             _colors.Add("InteractiblePingSpriteColor", _config.InteractiblePingSpriteColorConfig.Value.ToColor());
         }
 
-         /// <summary>
-         /// If a scene unloads, all the <see cref="PingIndicator"/> instances become invalidated by the game. 
-         /// To save on memory we also clear out the local list of <see cref="PingIndicator"/>s we carry!
-         /// </summary>
+        /// <summary>
+        /// If a scene unloads, all the <see cref="PingIndicator"/> instances become invalidated by the game. 
+        /// To save on memory we also clear out the local list of <see cref="PingIndicator"/>s we carry!
+        /// </summary>
         public void OnSceneUnloaded(Scene scene)
         {
             _pingIndicators.Clear();
@@ -82,7 +83,8 @@ namespace Pingprovements
 
             float fixedTimer = 0f;
 
-            RoR2.UI.PingIndicator.PingType pingType = pingIndicator.GetObjectValue<RoR2.UI.PingIndicator.PingType>("pingType");
+            RoR2.UI.PingIndicator.PingType pingType =
+                pingIndicator.GetObjectValue<RoR2.UI.PingIndicator.PingType>("pingType");
 
             switch (pingType)
             {
@@ -96,11 +98,12 @@ namespace Pingprovements
                 case RoR2.UI.PingIndicator.PingType.Interactable:
                     fixedTimer = _config.InteractiblePingLifetime.Value;
                     AddLootText(pingIndicator);
+                    ShowUnlockedItemNotification(pingIndicator);
                     break;
             }
 
             pingIndicator.SetObjectValue("fixedTimer", fixedTimer);
-            
+
             // We add the ping indicator to our own local list
             _pingIndicators.Add(pingIndicator);
 
@@ -119,7 +122,8 @@ namespace Pingprovements
             SpriteRenderer sprRenderer;
             Color textColor = new Color(0, 0, 0, 0);
 
-            RoR2.UI.PingIndicator.PingType pingType = pingIndicator.GetObjectValue<RoR2.UI.PingIndicator.PingType>("pingType");
+            RoR2.UI.PingIndicator.PingType pingType =
+                pingIndicator.GetObjectValue<RoR2.UI.PingIndicator.PingType>("pingType");
 
             switch (pingType)
             {
@@ -151,7 +155,7 @@ namespace Pingprovements
         {
             const string textStart = "<size=70%>\n";
             string name = Util.GetBestBodyName(pingIndicator.pingTarget);
-            
+
             if (_config.ShowEnemyText.Value) pingIndicator.pingText.text += $"{textStart}{name}";
         }
 
@@ -195,7 +199,7 @@ namespace Pingprovements
             PurchaseInteraction purchaseInteraction = pingIndicator.pingTarget.GetComponent<PurchaseInteraction>();
             if (purchaseInteraction)
             {
-                name = Language.GetString(purchaseInteraction.displayNameToken);    
+                name = Language.GetString(purchaseInteraction.displayNameToken);
             }
 
             // Drones
@@ -208,7 +212,7 @@ namespace Pingprovements
 
             if (_config.ShowShrineText.Value) pingIndicator.pingText.text += $"{textStart}{name}";
         }
-        
+
         /// <summary>
         /// Get the price from a <see cref="GameObject"/> if it is a <see cref="PurchaseInteraction"/>
         /// </summary>
@@ -227,6 +231,55 @@ namespace Pingprovements
             }
 
             return null;
+        }
+
+        private void ShowUnlockedItemNotification(RoR2.UI.PingIndicator pingIndicator)
+        {
+            GenericPickupController pickupController = pingIndicator.pingTarget.GetComponent<GenericPickupController>();
+            if (pickupController && _config.ShowItemNotification.Value)
+            {
+                BuildNotification(pickupController.pickupIndex, pingIndicator);
+            }
+
+            PurchaseInteraction purchaseInteraction = pingIndicator.pingTarget.GetComponent<PurchaseInteraction>();
+            if (purchaseInteraction && _config.ShowItemNotification.Value)
+            {
+                ShopTerminalBehavior shopTerminalBehavior = purchaseInteraction.GetComponent<ShopTerminalBehavior>();
+                if (shopTerminalBehavior && !shopTerminalBehavior.pickupIndexIsHidden)
+                {
+                    BuildNotification(shopTerminalBehavior.CurrentPickupIndex(), pingIndicator);
+                }
+            }
+        }
+
+        private void BuildNotification(PickupIndex pickupIndex, RoR2.UI.PingIndicator pingIndicator)
+        {
+            LocalUser localUser = LocalUserManager.GetFirstLocalUser();
+
+            if (localUser.currentNetworkUser.userName ==
+                Util.GetBestMasterName(pingIndicator.pingOwner.GetComponent<CharacterMaster>()))
+            {
+                if (localUser.userProfile.HasDiscoveredPickup(pickupIndex))
+                {
+                    PickupDef pickup = PickupCatalog.GetPickupDef(pickupIndex);
+
+                    GenericNotification notification = Object
+                        .Instantiate(Resources.Load<GameObject>("Prefabs/NotificationPanel2"))
+                        .GetComponent<GenericNotification>();
+
+                    if (pickup.itemIndex != ItemIndex.None)
+                    {
+                        notification.SetItem(pickup.itemIndex);
+                    }
+                    else if (pickup.equipmentIndex != EquipmentIndex.None)
+                    {
+                        notification.SetEquipment(pickup.equipmentIndex);
+                    }
+
+                    notification.transform.SetParent(RoR2Application.instance.mainCanvas.transform, false);
+                    notification.transform.position = new Vector3(notification.transform.position.x + 2, 95, 0);
+                }
+            }
         }
     }
 }

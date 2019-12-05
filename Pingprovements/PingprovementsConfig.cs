@@ -124,6 +124,13 @@ namespace Pingprovements
                 "Hide text of offscreen pings to prevent cluttering",
                 true
             );
+
+            ShowItemNotification = config.Wrap(
+                "Notifications",
+                "ShowItemNotification",
+                "Show pickup-style notification with description on ping of an already discovered item",
+                true
+            );
         }
         
         #region Durations Configuration Options
@@ -224,6 +231,15 @@ namespace Pingprovements
         /// Configuration value to hide the ping label if a ping is offscreen
         /// </summary>
         public ConfigWrapper<bool> HideOffscreenPingText { get; set; }
+        
+        #endregion
+        
+        #region Notification Configuration Options
+        
+        /// <summary>
+        /// Configuration value to hide the ping label if a ping is offscreen
+        /// </summary>
+        public ConfigWrapper<bool> ShowItemNotification { get; set; }
         
         #endregion
     }

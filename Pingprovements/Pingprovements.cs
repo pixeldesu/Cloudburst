@@ -16,6 +16,8 @@ namespace Pingprovements
 
         #endregion
 
+        public PingprovementsConfig GetConfig() => _config;
+
         #region Configuration and Startup
 
         public Pingprovements()
@@ -29,14 +31,12 @@ namespace Pingprovements
             PingerController pingerController = new PingerController(this);
 
             On.RoR2.PingerController.SetCurrentPing += pingerController.SetCurrentPing;
-            
+
             On.RoR2.UI.PingIndicator.Update += pingIndicator.Update;
 
             SceneManager.sceneUnloaded += pingerController.OnSceneUnloaded;
         }
 
         #endregion
-
-        public PingprovementsConfig GetConfig() => _config;
     }
 }
