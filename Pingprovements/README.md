@@ -41,7 +41,7 @@ After the game has been started with the mod installed once, you will have a con
     - `Enemies`: Show names on enemy pings (Default: `true`)
     - `Distance`: Show the distance to made pings (Default: `true`)
     - `HideOffscreenPingText`: Hides the ping label if the ping goes offscreen (Default: `true`)
-- `Notification`
+- `Notifications`
     - `ShowItemNotification`: Show pickup-style notification with description on ping of an already discovered item (Default: `true`)
 
 This mod overrides the internal `fixedTimer` for pings after it has been built, so no special conditions like teleporter or shrine pings will change the time for `InteractiblePingLifetime`.
@@ -50,7 +50,7 @@ This mod overrides the internal `fixedTimer` for pings after it has been built, 
 
 ### 1.4.0
 
-- **Feature:** Ping Indicators on items now can show a pickup-like notification that shows the item name and description, if the item is already present in your logbook. This new option is enabled by default, and a new `Notification` section with a `ShowItemNotification` option has been added to the configuration.
+- **Feature:** Ping Indicators on items now can show a pickup-like notification that shows the item name and description, if the item is already present in your logbook. This new option is enabled by default, and a new `Notifications` section with a `ShowItemNotification` option has been added to the configuration.
 
 ### 1.3.1
 
