@@ -48,6 +48,10 @@ This mod overrides the internal `fixedTimer` for pings after it has been built, 
 
 ## Changelog
 
+### 1.4.1
+
+- **Task:** Rebuild with newest Content Update assemblies.
+
 ### 1.4.0
 
 - **Feature:** Ping Indicators on items now can show a pickup-like notification that shows the item name and description, if the item is already present in your logbook. This new option is enabled by default, and a new `Notifications` section with a `ShowItemNotification` option has been added to the configuration.
