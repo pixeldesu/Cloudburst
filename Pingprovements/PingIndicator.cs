@@ -43,6 +43,15 @@ namespace Pingprovements
                     self.pingText.alpha = 1;
                 }   
             }
+            
+            BarrelInteraction barrelInteraction = self.pingTarget.GetComponent<BarrelInteraction>();
+            if (barrelInteraction)
+            {
+                if (barrelInteraction.Networkopened)
+                {
+                    Object.Destroy(self.gameObject);
+                }
+            }
         }
     }
 }
