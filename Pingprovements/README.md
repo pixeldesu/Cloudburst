@@ -48,6 +48,10 @@ This mod overrides the internal `fixedTimer` for pings after it has been built, 
 
 ## Changelog
 
+### 1.4.2
+
+- **Bugfix:** Fixed pings on barrels persisting even after a barrel has been opened.
+
 ### 1.4.1
 
 - **Task:** Rebuild with newest Content Update assemblies.
