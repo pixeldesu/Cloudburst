@@ -48,6 +48,11 @@ This mod overrides the internal `fixedTimer` for pings after it has been built, 
 
 ## Changelog
 
+### 1.4.3
+
+- **Feature:** Support pinging known artifacts for an item notification.
+- **Task:** Rebuild with newest Content Update assemblies.
+
 ### 1.4.2
 
 - **Bugfix:** Fixed pings on barrels persisting even after a barrel has been opened.
