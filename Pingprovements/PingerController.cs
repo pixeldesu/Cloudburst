@@ -34,8 +34,8 @@ namespace Pingprovements
             _colors.Add("DefaultPingSpriteColor", _config.DefaultPingSpriteColorConfig.Value.ToColor());
             _colors.Add("EnemyPingColor", _config.EnemyPingColorConfig.Value.ToColor());
             _colors.Add("EnemyPingSpriteColor", _config.EnemyPingSpriteColorConfig.Value.ToColor());
-            _colors.Add("InteractiblePingColor", _config.InteractiblePingColorConfig.Value.ToColor());
-            _colors.Add("InteractiblePingSpriteColor", _config.InteractiblePingSpriteColorConfig.Value.ToColor());
+            _colors.Add("InteractablePingColor", _config.InteractablePingColorConfig.Value.ToColor());
+            _colors.Add("InteractablePingSpriteColor", _config.InteractablePingSpriteColorConfig.Value.ToColor());
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Pingprovements
                 return;
 
             // If the targeted game object already has a ping, don't do anything
-            // This is here to avoid stacking of different player pings on interactibles
+            // This is here to avoid stacking of different player pings on interactables
             if (newPingInfo.targetGameObject != null &&
                 _pingIndicators.Any(indicator => indicator && indicator.pingTarget == newPingInfo.targetGameObject))
                 return;
@@ -96,7 +96,7 @@ namespace Pingprovements
                     AddEnemyText(pingIndicator);
                     break;
                 case RoR2.UI.PingIndicator.PingType.Interactable:
-                    fixedTimer = _config.InteractiblePingLifetime.Value;
+                    fixedTimer = _config.InteractablePingLifetime.Value;
                     AddLootText(pingIndicator);
                     ShowUnlockedItemNotification(pingIndicator);
                     break;
@@ -138,9 +138,9 @@ namespace Pingprovements
                     sprRenderer.color = _colors["EnemyPingSpriteColor"];
                     break;
                 case RoR2.UI.PingIndicator.PingType.Interactable:
-                    textColor = _colors["InteractiblePingColor"];
+                    textColor = _colors["InteractablePingColor"];
                     sprRenderer = pingIndicator.interactablePingGameObjects[0].GetComponent<SpriteRenderer>();
-                    sprRenderer.color = _colors["InteractiblePingSpriteColor"];
+                    sprRenderer.color = _colors["InteractablePingSpriteColor"];
                     break;
             }
 
@@ -160,7 +160,7 @@ namespace Pingprovements
         }
 
         /// <summary>
-        /// Adds text labels for various interactibles to a <see cref="PingIndicator"/>
+        /// Adds text labels for various interactables to a <see cref="PingIndicator"/>
         /// </summary>
         /// <param name="pingIndicator">Target <see cref="PingIndicator"/> that should have the text added</param>
         private static void AddLootText(RoR2.UI.PingIndicator pingIndicator)

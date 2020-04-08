@@ -20,11 +20,11 @@ namespace Pingprovements
                 "Time in seconds how long a ping indicator for enemies should be shown on the map"
             );
 
-            InteractiblePingLifetime = config.Bind(
+            InteractablePingLifetime = config.Bind(
                 "Durations",
-                "InteractiblePingLifetime",
+                "InteractablePingLifetime",
                 30,
-                "Time in seconds how long a ping indicator for interactibles should be shown on the map"
+                "Time in seconds how long a ping indicator for interactables should be shown on the map"
             );
 
             DefaultPingColorConfig = config.Bind(
@@ -55,18 +55,18 @@ namespace Pingprovements
                 "Color of the enemy ping sprite, in UnityEngine.Color R/G/B/A Float format"
             );
 
-            InteractiblePingColorConfig = config.Bind(
+            InteractablePingColorConfig = config.Bind(
                 "Colors",
-                "InteractiblePingColor",
+                "InteractablePingColor",
                 "0.886,0.871,0.173,1.000",
-                "Color of the interactible ping, in UnityEngine.Color R/G/B/A Float format"
+                "Color of the interactable ping, in UnityEngine.Color R/G/B/A Float format"
             );
 
-            InteractiblePingSpriteColorConfig = config.Bind(
+            InteractablePingSpriteColorConfig = config.Bind(
                 "SpriteColors",
-                "InteractiblePingSpriteColor",
+                "InteractablePingSpriteColor",
                 "0.887,0.870,0.172,1.000",
-                "Color of the interactible ping sprite, in UnityEngine.Color R/G/B/A Float format"
+                "Color of the interactable ping sprite, in UnityEngine.Color R/G/B/A Float format"
             );
 
             ShowPickupText = config.Bind(
@@ -146,9 +146,9 @@ namespace Pingprovements
         public ConfigEntry<int> EnemyPingLifetime { get; set; }
         
         /// <summary>
-        /// Configuration value for the interactible ping lifetime
+        /// Configuration value for the interactable ping lifetime
         /// </summary>
-        public ConfigEntry<int> InteractiblePingLifetime { get; set; }
+        public ConfigEntry<int> InteractablePingLifetime { get; set; }
         
         #endregion
 
@@ -165,9 +165,9 @@ namespace Pingprovements
         public ConfigEntry<string> EnemyPingColorConfig { get; set; }
         
         /// <summary>
-        /// Configuration value for the interactible ping color
+        /// Configuration value for the interactable ping color
         /// </summary>
-        public ConfigEntry<string> InteractiblePingColorConfig { get; set; }
+        public ConfigEntry<string> InteractablePingColorConfig { get; set; }
         
         #endregion
         
@@ -184,9 +184,9 @@ namespace Pingprovements
         public ConfigEntry<string> EnemyPingSpriteColorConfig { get; set; }
         
         /// <summary>
-        /// Configuration value for the interactible ping sprite color
+        /// Configuration value for the interactable ping sprite color
         /// </summary>
-        public ConfigEntry<string> InteractiblePingSpriteColorConfig { get; set; }
+        public ConfigEntry<string> InteractablePingSpriteColorConfig { get; set; }
         
         #endregion
 
