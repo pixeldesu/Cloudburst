@@ -48,6 +48,13 @@ This mod overrides the internal `fixedTimer` for pings after it has been built, 
 
 ## Changelog
 
+### 1.5.0
+
+- **Task:** Update to latest BepInExPack version and convert to new configuration format to mitigate several issues.
+
+**Upgrade:** Download and install the latest [BepInExPack from Thunderstore](https://thunderstore.io/package/bbepis/BepInExPack/).
+If there are any issues with configuration loading, which there shouldn't be, delete your configuration and run Risk of Rain 2 once.
+
 ### 1.4.3
 
 - **Feature:** Support pinging known artifacts for an item notification.
