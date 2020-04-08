@@ -3,5 +3,5 @@
   "version_number": "1.4.3",
   "website_url": "https://github.com/pixeldesu/Cloudburst",
   "description": "Several improvements to Pings, like multiple pings and adjustable timers or colors per type",
-  "dependencies": ["bbepis-BepInExPack-3.0.0"]
+  "dependencies": ["bbepis-BepInExPack-3.2.0"]
 }
