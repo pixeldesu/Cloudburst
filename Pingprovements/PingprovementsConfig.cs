@@ -6,130 +6,130 @@ namespace Pingprovements
     {
         public PingprovementsConfig(ConfigFile config)
         {
-            DefaultPingLifetime = config.Wrap(
+            DefaultPingLifetime = config.Bind(
                 "Durations",
                 "DefaultPingLifetime",
-                "Time in seconds how long a regular 'walk to' ping indicator should be shown on the map",
-                6
+                6,
+                "Time in seconds how long a regular 'walk to' ping indicator should be shown on the map"
             );
 
-            EnemyPingLifetime = config.Wrap(
+            EnemyPingLifetime = config.Bind(
                 "Durations",
                 "EnemyPingLifetime",
-                "Time in seconds how long a ping indicator for enemies should be shown on the map",
-                8
+                8,
+                "Time in seconds how long a ping indicator for enemies should be shown on the map"
             );
 
-            InteractiblePingLifetime = config.Wrap(
+            InteractiblePingLifetime = config.Bind(
                 "Durations",
                 "InteractiblePingLifetime",
-                "Time in seconds how long a ping indicator for interactibles should be shown on the map",
-                30
+                30,
+                "Time in seconds how long a ping indicator for interactibles should be shown on the map"
             );
 
-            DefaultPingColorConfig = config.Wrap(
+            DefaultPingColorConfig = config.Bind(
                 "Colors",
                 "DefaultPingColor",
-                "Color of the default ping, in UnityEngine.Color R/G/B/A Float format",
-                "0.525,0.961,0.486,1.000"
+                "0.525,0.961,0.486,1.000",
+                "Color of the default ping, in UnityEngine.Color R/G/B/A Float format"
             );
 
-            DefaultPingSpriteColorConfig = config.Wrap(
+            DefaultPingSpriteColorConfig = config.Bind(
                 "SpriteColors",
                 "DefaultPingSpriteColor",
-                "Color of the default ping sprite, in UnityEngine.Color R/G/B/A Float format",
-                "0.527,0.962,0.486,1.000"
+                "0.527,0.962,0.486,1.000",
+                "Color of the default ping sprite, in UnityEngine.Color R/G/B/A Float format"
             );
 
-            EnemyPingColorConfig = config.Wrap(
+            EnemyPingColorConfig = config.Bind(
                 "Colors",
                 "EnemyPingColor",
-                "Color of the enemy ping, in UnityEngine.Color R/G/B/A Float format",
-                "0.820,0.122,0.122,1.000"
+                "0.820,0.122,0.122,1.000",
+                "Color of the enemy ping, in UnityEngine.Color R/G/B/A Float format"
             );
 
-            EnemyPingSpriteColorConfig = config.Wrap(
+            EnemyPingSpriteColorConfig = config.Bind(
                 "SpriteColors",
                 "EnemyPingSpriteColor",
-                "Color of the enemy ping sprite, in UnityEngine.Color R/G/B/A Float format",
-                "0.821,0.120,0.120,1.000"
+                "0.821,0.120,0.120,1.000",
+                "Color of the enemy ping sprite, in UnityEngine.Color R/G/B/A Float format"
             );
 
-            InteractiblePingColorConfig = config.Wrap(
+            InteractiblePingColorConfig = config.Bind(
                 "Colors",
                 "InteractiblePingColor",
-                "Color of the interactible ping, in UnityEngine.Color R/G/B/A Float format",
-                "0.886,0.871,0.173,1.000"
+                "0.886,0.871,0.173,1.000",
+                "Color of the interactible ping, in UnityEngine.Color R/G/B/A Float format"
             );
 
-            InteractiblePingSpriteColorConfig = config.Wrap(
+            InteractiblePingSpriteColorConfig = config.Bind(
                 "SpriteColors",
                 "InteractiblePingSpriteColor",
-                "Color of the interactible ping sprite, in UnityEngine.Color R/G/B/A Float format",
-                "0.887,0.870,0.172,1.000"
+                "0.887,0.870,0.172,1.000",
+                "Color of the interactible ping sprite, in UnityEngine.Color R/G/B/A Float format"
             );
 
-            ShowPickupText = config.Wrap(
+            ShowPickupText = config.Bind(
                 "ShowPingText",
                 "Pickups",
-                "Shows item names on pickup pings",
-                true
+                true,
+                "Shows item names on pickup pings"
             );
 
-            ShowChestText = config.Wrap(
+            ShowChestText = config.Bind(
                 "ShowPingText",
                 "Chests",
-                "Shows item names and cost on chest pings",
-                true
+                true,
+                "Shows item names and cost on chest pings"
             );
 
-            ShowShopText = config.Wrap(
+            ShowShopText = config.Bind(
                 "ShowPingText",
                 "ShopTerminals",
-                "Shows item names and cost on shop terminal pings",
-                true
+                true,
+                "Shows item names and cost on shop terminal pings"
             );
 
-            ShowDroneText = config.Wrap(
+            ShowDroneText = config.Bind(
                 "ShowPingText",
                 "Drones",
-                "Shows drone type on broken drone pings",
-                true
+                true,
+                "Shows drone type on broken drone pings"
             );
 
-            ShowShrineText = config.Wrap(
+            ShowShrineText = config.Bind(
                 "ShowPingText",
                 "Shrines",
-                "Shows shrine type on shrine pings",
-                true
+                true,
+                "Shows shrine type on shrine pings"
             );
             
-            ShowEnemyText = config.Wrap(
+            ShowEnemyText = config.Bind(
                 "ShowPingText",
                 "Enemies",
-                "Shows names on enemy pings",
-                true
+                true,
+                "Shows names on enemy pings"
             );
 
-            ShowPingDistance = config.Wrap(
+            ShowPingDistance = config.Bind(
                 "ShowPingText",
                 "Distance",
-                "Show distance to ping in ping label",
-                true
+                true,
+                "Show distance to ping in ping label"
             );
 
-            HideOffscreenPingText = config.Wrap(
+            HideOffscreenPingText = config.Bind(
                 "ShowPingText",
                 "HideOffscreenPingText",
-                "Hide text of offscreen pings to prevent cluttering",
-                true
+                true,
+                "Hide text of offscreen pings to prevent cluttering"
             );
 
-            ShowItemNotification = config.Wrap(
+            ShowItemNotification = config.Bind(
                 "Notifications",
                 "ShowItemNotification",
-                "Show pickup-style notification with description on ping of an already discovered item",
-                true
+                true,
+                "Show pickup-style notification with description on ping of an already discovered item"
             );
         }
         
@@ -138,17 +138,17 @@ namespace Pingprovements
         /// <summary>
         /// Configuration value for the default ping lifetime
         /// </summary>
-        public ConfigWrapper<int> DefaultPingLifetime { get; set; }
+        public ConfigEntry<int> DefaultPingLifetime { get; set; }
         
         /// <summary>
         /// Configuration value for the enemy ping lifetime
         /// </summary>
-        public ConfigWrapper<int> EnemyPingLifetime { get; set; }
+        public ConfigEntry<int> EnemyPingLifetime { get; set; }
         
         /// <summary>
         /// Configuration value for the interactible ping lifetime
         /// </summary>
-        public ConfigWrapper<int> InteractiblePingLifetime { get; set; }
+        public ConfigEntry<int> InteractiblePingLifetime { get; set; }
         
         #endregion
 
@@ -157,17 +157,17 @@ namespace Pingprovements
         /// <summary>
         /// Configuration value for the default ping color
         /// </summary>
-        public ConfigWrapper<string> DefaultPingColorConfig { get; set; }
+        public ConfigEntry<string> DefaultPingColorConfig { get; set; }
         
         /// <summary>
         /// Configuration value for the enemy ping color
         /// </summary>
-        public ConfigWrapper<string> EnemyPingColorConfig { get; set; }
+        public ConfigEntry<string> EnemyPingColorConfig { get; set; }
         
         /// <summary>
         /// Configuration value for the interactible ping color
         /// </summary>
-        public ConfigWrapper<string> InteractiblePingColorConfig { get; set; }
+        public ConfigEntry<string> InteractiblePingColorConfig { get; set; }
         
         #endregion
         
@@ -176,17 +176,17 @@ namespace Pingprovements
         /// <summary>
         /// Configuration value for the default ping sprite color
         /// </summary>
-        public ConfigWrapper<string> DefaultPingSpriteColorConfig { get; set; }
+        public ConfigEntry<string> DefaultPingSpriteColorConfig { get; set; }
         
         /// <summary>
         /// Configuration value for the enemy ping sprite color
         /// </summary>
-        public ConfigWrapper<string> EnemyPingSpriteColorConfig { get; set; }
+        public ConfigEntry<string> EnemyPingSpriteColorConfig { get; set; }
         
         /// <summary>
         /// Configuration value for the interactible ping sprite color
         /// </summary>
-        public ConfigWrapper<string> InteractiblePingSpriteColorConfig { get; set; }
+        public ConfigEntry<string> InteractiblePingSpriteColorConfig { get; set; }
         
         #endregion
 
@@ -195,42 +195,42 @@ namespace Pingprovements
         /// <summary>
         /// Configuration value to enable showing shop text on pings
         /// </summary>
-        public ConfigWrapper<bool> ShowShopText { get; set; }
+        public ConfigEntry<bool> ShowShopText { get; set; }
         
         /// <summary>
         /// Configuration value to enable showing chest text on pings
         /// </summary>
-        public ConfigWrapper<bool> ShowChestText { get; set; }
+        public ConfigEntry<bool> ShowChestText { get; set; }
 
         /// <summary>
         /// Configuration value to enable showing pickup text on pings
         /// </summary>
-        public ConfigWrapper<bool> ShowPickupText { get; set; }
+        public ConfigEntry<bool> ShowPickupText { get; set; }
 
         /// <summary>
         /// Configuration value to enable showing drone text on pings
         /// </summary>
-        public ConfigWrapper<bool> ShowDroneText { get; set; }
+        public ConfigEntry<bool> ShowDroneText { get; set; }
         
         /// <summary>
         /// Configuration value to enable showing shrine text on pings
         /// </summary>
-        public ConfigWrapper<bool> ShowShrineText { get; set; }
+        public ConfigEntry<bool> ShowShrineText { get; set; }
         
         /// <summary>
         /// Configuration value to enable showing enemy names on pings
         /// </summary>
-        public ConfigWrapper<bool> ShowEnemyText { get; set; }
+        public ConfigEntry<bool> ShowEnemyText { get; set; }
         
         /// <summary>
         /// Configuration value to enable showing the distance to a ping
         /// </summary>
-        public ConfigWrapper<bool> ShowPingDistance { get; set; }
+        public ConfigEntry<bool> ShowPingDistance { get; set; }
         
         /// <summary>
         /// Configuration value to hide the ping label if a ping is offscreen
         /// </summary>
-        public ConfigWrapper<bool> HideOffscreenPingText { get; set; }
+        public ConfigEntry<bool> HideOffscreenPingText { get; set; }
         
         #endregion
         
@@ -239,7 +239,7 @@ namespace Pingprovements
         /// <summary>
         /// Configuration value to hide the ping label if a ping is offscreen
         /// </summary>
-        public ConfigWrapper<bool> ShowItemNotification { get; set; }
+        public ConfigEntry<bool> ShowItemNotification { get; set; }
         
         #endregion
     }
