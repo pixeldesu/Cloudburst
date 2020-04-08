@@ -17,8 +17,6 @@ namespace Pingprovements
 
         public void Update(On.RoR2.UI.PingIndicator.orig_Update orig, RoR2.UI.PingIndicator self)
         {
-            orig(self);
-            
             LocalUser localUser = LocalUserManager.GetFirstLocalUser();
 
             if (_config.ShowPingDistance.Value)
@@ -52,6 +50,8 @@ namespace Pingprovements
                     Object.Destroy(self.gameObject);
                 }
             }
+            
+            orig(self);
         }
     }
 }
