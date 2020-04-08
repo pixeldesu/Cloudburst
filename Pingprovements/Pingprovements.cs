@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 namespace Pingprovements
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.pixeldesu.pingprovements", "Pingprovements", "1.5.0")]
+    [BepInPlugin("com.pixeldesu.pingprovements", "Pingprovements", "1.5.1")]
     public class Pingprovements : BaseUnityPlugin
     {
         #region Private Fields

@@ -48,6 +48,10 @@ This mod overrides the internal `fixedTimer` for pings after it has been built, 
 
 ## Changelog
 
+### 1.5.1
+
+- **Bugfix:** Missing null reference check caused movement pings to be persistent all time (since they flatout broke).
+
 ### 1.5.0
 
 - **Task:** Update to latest BepInExPack version and convert to new configuration format to mitigate several issues.
