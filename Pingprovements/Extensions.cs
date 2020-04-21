@@ -20,7 +20,8 @@ namespace Pingprovements
         
         public static Color ToColor(this string colorString)
         {
-            float[] colorValues = Array.ConvertAll(colorString.Split(','), float.Parse);
+            float[] colorValues = Array.ConvertAll(colorString.Split(','), 
+                                                  str => float.Parse(str, System.Globalization.CultureInfo.InvariantCulture));
 
             return new Color(colorValues[0], colorValues[1], colorValues[2], colorValues[3]);
         }
