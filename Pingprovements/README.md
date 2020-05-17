@@ -23,15 +23,15 @@ After the game has been started with the mod installed once, you will have a con
 - `Durations`
     - `DefaultPingLifetime`: Lifetime of the default walk ping in seconds (Default: `6`)
     - `EnemyPingLifetime`: Lifetime of the enemy ping in seconds (Default: `8`)
-    - `InteractiblePingLifetime`: Lifetime of the interactible ping in seconds (Default: `30`)
+    - `InteractablePingLifetime`: Lifetime of the interactable ping in seconds (Default: `30`)
 - `Colors`
     - `DefaultPingColor`: Color of the default ping text (Default: `0.525,0.961,0.486,1.000`)
     - `EnemyPingColor`: Color of the enemy ping text (Default: `0.820,0.122,0.122,1.000`)
-    - `InteractiblePingColor`: Color of the interactible ping text (Default: `0.886,0.871,0.173,1.000`)
+    - `InteractablePingColor`: Color of the interactable ping text (Default: `0.886,0.871,0.173,1.000`)
 - `SpriteColors`
     - `DefaultPingSpriteColor`: Color of the default ping sprite (Default: `0.527,0.962,0.486,1.000`)
     - `EnemyPingSpriteColor`: Color of the enemy ping sprite (Default: `0.821,0.120,0.120,1.000`)
-    - `InteractiblePingSpriteColor`: Color of the interactible ping sprite (Default: `0.887,0.870,0.172,1.000`)
+    - `InteractablePingSpriteColor`: Color of the interactable ping sprite (Default: `0.887,0.870,0.172,1.000`)
 - `ShowPingText`
     - `Chests`: Shows item names and cost on chest pings (Default: `true`)
     - `ShopTerminals`: Shows item names and cost on shop terminal pings (Default: `true`)
@@ -44,9 +44,16 @@ After the game has been started with the mod installed once, you will have a con
 - `Notifications`
     - `ShowItemNotification`: Show pickup-style notification with description on ping of an already discovered item (Default: `true`)
 
-This mod overrides the internal `fixedTimer` for pings after it has been built, so no special conditions like teleporter or shrine pings will change the time for `InteractiblePingLifetime`.
+This mod overrides the internal `fixedTimer` for pings after it has been built, so no special conditions like teleporter or shrine pings will change the time for `InteractablePingLifetime`.
 
 ## Changelog
+
+### 1.6.0
+
+- **Bugfix:** Fixed "interactible" typo to "interactable", as it should be everywhere.
+- **Bugfix:** Fixed configuration parsing being broken for non-english languages that don't use "." as default float delimiter. Thanks to [ric20007](https://github.com/ric20007) for this contribution.
+
+**Upgrade:** Configuration values don't migrate on change, so the "new" Interactable* values have the default configuration values. Just copy the old values to the new ones in the configuration file!
 
 ### 1.5.1
 
