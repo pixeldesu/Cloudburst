@@ -48,6 +48,10 @@ This mod overrides the internal `fixedTimer` for pings after it has been built, 
 
 ## Changelog
 
+### 1.6.1
+
+- **Task:** Rebuild with the 1.0 Release assemblies.
+
 ### 1.6.0
 
 - **Bugfix:** Fixed "interactible" typo to "interactable", as it should be everywhere.
