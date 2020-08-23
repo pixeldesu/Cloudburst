@@ -19,18 +19,16 @@ namespace Pingprovements
             _colors.Add("InteractablePingColor", config.InteractablePingColorConfig.Value.ToColor());
             _colors.Add("InteractablePingSpriteColor", config.InteractablePingSpriteColorConfig.Value.ToColor());
         }
-        
+
         /// <summary>
         /// Sets the ping text and sprite color for a given <see cref="PingIndicator"/>
         /// </summary>
         /// <param name="pingIndicator">Target <see cref="PingIndicator"/></param>
-        public void SetPingIndicatorColor(RoR2.UI.PingIndicator pingIndicator)
+        /// <param name="pingType">Type of the ping</param>
+        public void SetPingIndicatorColor(RoR2.UI.PingIndicator pingIndicator, RoR2.UI.PingIndicator.PingType pingType)
         {
             SpriteRenderer sprRenderer;
             Color textColor = new Color(0, 0, 0, 0);
-
-            RoR2.UI.PingIndicator.PingType pingType =
-                pingIndicator.GetObjectValue<RoR2.UI.PingIndicator.PingType>("pingType");
 
             switch (pingType)
             {

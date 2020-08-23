@@ -87,7 +87,7 @@ namespace Pingprovements
             RoR2.UI.PingIndicator.PingType pingType =
                 pingIndicator.GetObjectValue<RoR2.UI.PingIndicator.PingType>("pingType");
 
-            _painter.SetPingIndicatorColor(pingIndicator);
+            _painter.SetPingIndicatorColor(pingIndicator, pingType);
             _textBuilder.SetPingText(pingIndicator, pingType);
             SetPingTimer(pingIndicator, pingType);
 
