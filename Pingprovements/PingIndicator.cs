@@ -18,28 +18,30 @@ namespace Pingprovements
         public void Update(On.RoR2.UI.PingIndicator.orig_Update orig, RoR2.UI.PingIndicator self)
         {
             LocalUser localUser = LocalUserManager.GetFirstLocalUser();
-
-            if (_config.ShowPingDistance.Value)
+            if (localUser != null)
             {
-                Vector3 origin = new Vector3(0,0,0);
-                origin = localUser.cachedBody.footPosition;
-
-                float distance = Vector3.Distance(origin, self.transform.position);
-                int index = self.pingText.text.IndexOf((char)0x200B);
-                string sub = index >= 0 ? self.pingText.text.Substring(0, index) : self.pingText.text;
-                self.pingText.text = sub + (char) 0x200B + $" ({distance:0.0}m)";   
-            }
-
-            if (_config.HideOffscreenPingText.Value)
-            {
-                if (!localUser.cameraRigController.sceneCam.IsObjectVisible(self.transform))
+                if (_config.ShowPingDistance.Value)
                 {
-                    self.pingText.alpha = 0;
+                    Vector3 origin = new Vector3(0,0,0);
+                    origin = localUser.cachedBody.footPosition;
+
+                    float distance = Vector3.Distance(origin, self.transform.position);
+                    int index = self.pingText.text.IndexOf((char)0x200B);
+                    string sub = index >= 0 ? self.pingText.text.Substring(0, index) : self.pingText.text;
+                    self.pingText.text = sub + (char) 0x200B + $" ({distance:0.0}m)";   
                 }
-                else
+
+                if (_config.HideOffscreenPingText.Value)
                 {
-                    self.pingText.alpha = 1;
-                }   
+                    if (!localUser.cameraRigController.sceneCam.IsObjectVisible(self.transform))
+                    {
+                        self.pingText.alpha = 0;
+                    }
+                    else
+                    {
+                        self.pingText.alpha = 1;
+                    }   
+                }    
             }
 
             if (self.pingTarget)
