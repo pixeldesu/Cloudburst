@@ -48,6 +48,10 @@ This mod overrides the internal `fixedTimer` for pings after it has been built, 
 
 ## Changelog
 
+### 1.6.2
+
+- **Bugfix:** Add another null reference check that caused per-frame error output with some mod combinations.
+
 ### 1.6.1
 
 - **Task:** Rebuild with the 1.0 Release assemblies.
