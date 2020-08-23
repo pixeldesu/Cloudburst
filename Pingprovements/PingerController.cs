@@ -31,10 +31,16 @@ namespace Pingprovements
         /// </summary>
         private static PingPainter _painter;
 
+        /// <summary>
+        /// PingTextBuilder instance used by the PingerController
+        /// </summary>
+        private static PingTextBuilder _textBuilder;
+
         public PingerController(Pingprovements plugin)
         {
             _config = plugin.GetConfig();
             _painter = new PingPainter(_config);
+            _textBuilder = new PingTextBuilder(_config);
         }
 
         /// <summary>
@@ -77,31 +83,18 @@ namespace Pingprovements
             pingIndicator.pingTarget = newPingInfo.targetGameObject;
 
             pingIndicator.RebuildPing();
-
-            _painter.SetPingIndicatorColor(pingIndicator);
-
-            float fixedTimer = 0f;
-
+            
             RoR2.UI.PingIndicator.PingType pingType =
                 pingIndicator.GetObjectValue<RoR2.UI.PingIndicator.PingType>("pingType");
 
-            switch (pingType)
-            {
-                case RoR2.UI.PingIndicator.PingType.Default:
-                    fixedTimer = _config.DefaultPingLifetime.Value;
-                    break;
-                case RoR2.UI.PingIndicator.PingType.Enemy:
-                    fixedTimer = _config.EnemyPingLifetime.Value;
-                    AddEnemyText(pingIndicator);
-                    break;
-                case RoR2.UI.PingIndicator.PingType.Interactable:
-                    fixedTimer = _config.InteractablePingLifetime.Value;
-                    AddLootText(pingIndicator);
-                    ShowUnlockedItemNotification(pingIndicator);
-                    break;
-            }
+            _painter.SetPingIndicatorColor(pingIndicator);
+            _textBuilder.SetPingText(pingIndicator, pingType);
+            SetPingTimer(pingIndicator, pingType);
 
-            pingIndicator.SetObjectValue("fixedTimer", fixedTimer);
+            if (pingType == RoR2.UI.PingIndicator.PingType.Interactable)
+            {
+                ShowUnlockedItemNotification(pingIndicator);
+            }
 
             // We add the ping indicator to our own local list
             _pingIndicators.Add(pingIndicator);
@@ -112,90 +105,24 @@ namespace Pingprovements
             }
         }
 
-        /// <summary>
-        /// Adds name labels for targeted enemies to a <see cref="PingIndicator"/>
-        /// </summary>
-        /// <param name="pingIndicator">Target <see cref="PingIndicator"/> that should have the text added</param>
-        private static void AddEnemyText(RoR2.UI.PingIndicator pingIndicator)
+        private void SetPingTimer(RoR2.UI.PingIndicator pingIndicator, RoR2.UI.PingIndicator.PingType pingType)
         {
-            const string textStart = "<size=70%>\n";
-            string name = Util.GetBestBodyName(pingIndicator.pingTarget);
+            float fixedTimer = 0f;
 
-            if (_config.ShowEnemyText.Value) pingIndicator.pingText.text += $"{textStart}{name}";
-        }
-
-        /// <summary>
-        /// Adds text labels for various interactables to a <see cref="PingIndicator"/>
-        /// </summary>
-        /// <param name="pingIndicator">Target <see cref="PingIndicator"/> that should have the text added</param>
-        private static void AddLootText(RoR2.UI.PingIndicator pingIndicator)
-        {
-            const string textStart = "<size=70%>\n";
-            string price = GetPrice(pingIndicator.pingTarget);
-            ShopTerminalBehavior shopTerminal = pingIndicator.pingTarget.GetComponent<ShopTerminalBehavior>();
-            if (shopTerminal && _config.ShowShopText.Value)
+            switch (pingType)
             {
-                string text = textStart;
-                PickupIndex pickupIndex = shopTerminal.CurrentPickupIndex();
-                PickupDef pickup = PickupCatalog.GetPickupDef(pickupIndex);
-                text += shopTerminal.pickupIndexIsHidden
-                    ? "?"
-                    : $"{Language.GetString(pickup.nameToken)}";
-                pingIndicator.pingText.text += $"{text} ({price})";
-                return;
+                case RoR2.UI.PingIndicator.PingType.Default:
+                    fixedTimer = _config.DefaultPingLifetime.Value;
+                    break;
+                case RoR2.UI.PingIndicator.PingType.Enemy:
+                    fixedTimer = _config.EnemyPingLifetime.Value;
+                    break;
+                case RoR2.UI.PingIndicator.PingType.Interactable:
+                    fixedTimer = _config.InteractablePingLifetime.Value;
+                    break;
             }
 
-            GenericPickupController pickupController = pingIndicator.pingTarget.GetComponent<GenericPickupController>();
-            if (pickupController && _config.ShowPickupText.Value)
-            {
-                PickupDef pickup = PickupCatalog.GetPickupDef(pickupController.pickupIndex);
-                pingIndicator.pingText.text += $"{textStart}{Language.GetString(pickup.nameToken)}";
-            }
-
-            ChestBehavior chest = pingIndicator.pingTarget.GetComponent<ChestBehavior>();
-            if (chest && _config.ShowChestText.Value)
-            {
-                pingIndicator.pingText.text += $"{textStart}{Util.GetBestBodyName(pingIndicator.pingTarget)} ({price})";
-                return;
-            }
-
-            string name = "";
-
-            PurchaseInteraction purchaseInteraction = pingIndicator.pingTarget.GetComponent<PurchaseInteraction>();
-            if (purchaseInteraction)
-            {
-                name = Language.GetString(purchaseInteraction.displayNameToken);
-            }
-
-            // Drones
-            SummonMasterBehavior summonMaster = pingIndicator.pingTarget.GetComponent<SummonMasterBehavior>();
-            if (summonMaster && _config.ShowDroneText.Value)
-            {
-                pingIndicator.pingText.text += $"{textStart}{name} ({price})";
-                return;
-            }
-
-            if (_config.ShowShrineText.Value) pingIndicator.pingText.text += $"{textStart}{name}";
-        }
-
-        /// <summary>
-        /// Get the price from a <see cref="GameObject"/> if it is a <see cref="PurchaseInteraction"/>
-        /// </summary>
-        /// <param name="go">The target <see cref="GameObject"/></param>
-        /// <returns>The price of the game object</returns>
-        private static string GetPrice(GameObject go)
-        {
-            PurchaseInteraction purchaseInteraction = go.GetComponent<PurchaseInteraction>();
-            if (purchaseInteraction)
-            {
-                StringBuilder sb = new StringBuilder();
-                CostTypeCatalog.GetCostTypeDef(purchaseInteraction.costType)
-                    .BuildCostStringStyled(purchaseInteraction.cost, sb, true);
-
-                return sb.ToString();
-            }
-
-            return null;
+            pingIndicator.SetObjectValue("fixedTimer", fixedTimer);
         }
 
         private void ShowUnlockedItemNotification(RoR2.UI.PingIndicator pingIndicator)
