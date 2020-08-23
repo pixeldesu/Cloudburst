@@ -26,16 +26,15 @@ namespace Pingprovements
         /// </summary>
         private readonly List<RoR2.UI.PingIndicator> _pingIndicators = new List<RoR2.UI.PingIndicator>();
 
+        /// <summary>
+        /// PingPainter instance used by the PingerController
+        /// </summary>
+        private static PingPainter _painter;
+
         public PingerController(Pingprovements plugin)
         {
             _config = plugin.GetConfig();
-
-            _colors.Add("DefaultPingColor", _config.DefaultPingColorConfig.Value.ToColor());
-            _colors.Add("DefaultPingSpriteColor", _config.DefaultPingSpriteColorConfig.Value.ToColor());
-            _colors.Add("EnemyPingColor", _config.EnemyPingColorConfig.Value.ToColor());
-            _colors.Add("EnemyPingSpriteColor", _config.EnemyPingSpriteColorConfig.Value.ToColor());
-            _colors.Add("InteractablePingColor", _config.InteractablePingColorConfig.Value.ToColor());
-            _colors.Add("InteractablePingSpriteColor", _config.InteractablePingSpriteColorConfig.Value.ToColor());
+            _painter = new PingPainter(_config);
         }
 
         /// <summary>
@@ -79,7 +78,7 @@ namespace Pingprovements
 
             pingIndicator.RebuildPing();
 
-            SetPingIndicatorColor(pingIndicator);
+            _painter.SetPingIndicatorColor(pingIndicator);
 
             float fixedTimer = 0f;
 
@@ -111,40 +110,6 @@ namespace Pingprovements
             {
                 self.CallCmdPing(self.currentPing);
             }
-        }
-
-        /// <summary>
-        /// Sets the ping text and sprite color for a given <see cref="PingIndicator"/>
-        /// </summary>
-        /// <param name="pingIndicator">Target <see cref="PingIndicator"/></param>
-        private void SetPingIndicatorColor(RoR2.UI.PingIndicator pingIndicator)
-        {
-            SpriteRenderer sprRenderer;
-            Color textColor = new Color(0, 0, 0, 0);
-
-            RoR2.UI.PingIndicator.PingType pingType =
-                pingIndicator.GetObjectValue<RoR2.UI.PingIndicator.PingType>("pingType");
-
-            switch (pingType)
-            {
-                case RoR2.UI.PingIndicator.PingType.Default:
-                    textColor = _colors["DefaultPingColor"];
-                    sprRenderer = pingIndicator.defaultPingGameObjects[0].GetComponent<SpriteRenderer>();
-                    sprRenderer.color = _colors["DefaultPingSpriteColor"];
-                    break;
-                case RoR2.UI.PingIndicator.PingType.Enemy:
-                    textColor = _colors["EnemyPingColor"];
-                    sprRenderer = pingIndicator.enemyPingGameObjects[0].GetComponent<SpriteRenderer>();
-                    sprRenderer.color = _colors["EnemyPingSpriteColor"];
-                    break;
-                case RoR2.UI.PingIndicator.PingType.Interactable:
-                    textColor = _colors["InteractablePingColor"];
-                    sprRenderer = pingIndicator.interactablePingGameObjects[0].GetComponent<SpriteRenderer>();
-                    sprRenderer.color = _colors["InteractablePingSpriteColor"];
-                    break;
-            }
-
-            pingIndicator.pingText.color = textColor;
         }
 
         /// <summary>
