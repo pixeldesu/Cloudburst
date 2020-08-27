@@ -20,7 +20,7 @@ namespace Pingprovements
             LocalUser localUser = LocalUserManager.GetFirstLocalUser();
             if (localUser != null)
             {
-                if (_config.ShowPingDistance.Value)
+                if (_config.ShowPingDistance.Value && localUser.cachedBody)
                 {
                     Vector3 origin = new Vector3(0,0,0);
                     origin = localUser.cachedBody.footPosition;
