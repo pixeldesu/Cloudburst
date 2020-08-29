@@ -1,0 +1,7 @@
+{
+  "name": "CommuniKeys",
+  "version_number": "1.0.0",
+  "website_url": "https://github.com/pixeldesu/Cloudburst",
+  "description": "Bind messages to keys to quickly send them into the chat!",
+  "dependencies": ["bbepis-BepInExPack-5.3.0"]
+}
