@@ -131,6 +131,13 @@ namespace Pingprovements
                 true,
                 "Show pickup-style notification with description on ping of an already discovered item"
             );
+
+            TieredInteractablePingColor = config.Bind(
+                "Colors",
+                "TieredInteractablePingColor",
+                true,
+                "Color pings in their target tier color"
+            );
         }
         
         #region Durations Configuration Options
@@ -168,6 +175,11 @@ namespace Pingprovements
         /// Configuration value for the interactable ping color
         /// </summary>
         public ConfigEntry<string> InteractablePingColorConfig { get; set; }
+        
+        /// <summary>
+        /// Configuration value for the interactable ping color
+        /// </summary>
+        public ConfigEntry<bool> TieredInteractablePingColor { get; set; }
         
         #endregion
         
