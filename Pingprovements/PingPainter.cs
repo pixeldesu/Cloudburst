@@ -27,29 +27,31 @@ namespace Pingprovements
         /// <param name="pingType">Type of the ping</param>
         public void SetPingIndicatorColor(RoR2.UI.PingIndicator pingIndicator, RoR2.UI.PingIndicator.PingType pingType)
         {
-            SpriteRenderer sprRenderer;
+            SpriteRenderer sprRenderer = new SpriteRenderer();
             Color textColor = new Color(0, 0, 0, 0);
+            Color spriteColor = new Color(0, 0, 0, 0);
 
             switch (pingType)
             {
                 case RoR2.UI.PingIndicator.PingType.Default:
-                    textColor = _colors["DefaultPingColor"];
                     sprRenderer = pingIndicator.defaultPingGameObjects[0].GetComponent<SpriteRenderer>();
-                    sprRenderer.color = _colors["DefaultPingSpriteColor"];
+                    textColor = _colors["DefaultPingColor"];
+                    spriteColor = _colors["DefaultPingSpriteColor"];
                     break;
                 case RoR2.UI.PingIndicator.PingType.Enemy:
-                    textColor = _colors["EnemyPingColor"];
                     sprRenderer = pingIndicator.enemyPingGameObjects[0].GetComponent<SpriteRenderer>();
-                    sprRenderer.color = _colors["EnemyPingSpriteColor"];
+                    textColor = _colors["EnemyPingColor"];
+                    spriteColor = _colors["EnemyPingSpriteColor"];
                     break;
                 case RoR2.UI.PingIndicator.PingType.Interactable:
-                    textColor = _colors["InteractablePingColor"];
                     sprRenderer = pingIndicator.interactablePingGameObjects[0].GetComponent<SpriteRenderer>();
-                    sprRenderer.color = _colors["InteractablePingSpriteColor"];
+                    textColor = _colors["InteractablePingColor"];
+                    spriteColor = _colors["InteractablePingSpriteColor"];
                     break;
             }
 
             pingIndicator.pingText.color = textColor;
+            sprRenderer.color = spriteColor;
         }
     }
 }
