@@ -109,6 +109,17 @@ namespace Pingprovements
                 color = ColorCatalog.GetColor(costType.colorIndex);
             }
 
+            PickupIndexNetworker pickupIndexNetworker = gameObject.GetComponent<PickupIndexNetworker>();
+            if (pickupIndexNetworker)
+            {
+                PickupDef pickup = PickupCatalog.GetPickupDef(pickupIndexNetworker.NetworkpickupIndex);
+                
+                if (pickup != null)
+                {
+                    color = pickup.baseColor;    
+                }
+            }
+
             if (color == Color.black)
             {
                 color = _colors["InteractablePingColor"];
