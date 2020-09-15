@@ -35,8 +35,8 @@ namespace Pingprovements
         public void SetPingIndicatorColor(RoR2.UI.PingIndicator pingIndicator, RoR2.UI.PingIndicator.PingType pingType)
         {
             SpriteRenderer sprRenderer = new SpriteRenderer();
-            Color textColor = new Color(0, 0, 0, 0);
-            Color spriteColor = new Color(0, 0, 0, 0);
+            Color textColor = Color.black;
+            Color spriteColor = Color.black;
 
             switch (pingType)
             {
