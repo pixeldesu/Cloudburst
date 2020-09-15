@@ -5,6 +5,7 @@ A mod that improves pings in Risk of Rain 2 in several different ways.
 ## Features
 
 - Allows multiple pings by the same player
+- Colors pings by the tier of the target
 - Configurable lifetimes for all ping types
 - Configurable colors for all ping types
 - Show labels for ping targets (instead of just chat messages)
@@ -28,6 +29,7 @@ After the game has been started with the mod installed once, you will have a con
     - `DefaultPingColor`: Color of the default ping text (Default: `0.525,0.961,0.486,1.000`)
     - `EnemyPingColor`: Color of the enemy ping text (Default: `0.820,0.122,0.122,1.000`)
     - `InteractablePingColor`: Color of the interactable ping text (Default: `0.886,0.871,0.173,1.000`)
+    - `TieredInteractablePingColor`: Color pings in their target tier color (Default: `true`)
 - `SpriteColors`
     - `DefaultPingSpriteColor`: Color of the default ping sprite (Default: `0.527,0.962,0.486,1.000`)
     - `EnemyPingSpriteColor`: Color of the enemy ping sprite (Default: `0.821,0.120,0.120,1.000`)
@@ -47,6 +49,12 @@ After the game has been started with the mod installed once, you will have a con
 This mod overrides the internal `fixedTimer` for pings after it has been built, so no special conditions like teleporter or shrine pings will change the time for `InteractablePingLifetime`.
 
 ## Changelog
+
+### 1.7.0
+
+- **Feature:** Ping Indicators on interactables are now colored in their game-defined tier color. This is enabled by default, but can be adjusted with the new `TieredInteractablePingColor` option in the `Colors` section! If the option is enabled and a tier cannot be found properly, it'll fall back to using `InteractablePingColor`.
+
+**Notes on Ping Colors:** These ping colors are not chosen by me, these are the colors the game defines. This might be a bit jarring considering the Shrine of Combat/Shrine of the Mountain feature a very bright pink.
 
 ### 1.6.3
 
